@@ -4,6 +4,80 @@
 
 /* ... */
 
+@keyframes rain {
+  0% {
+    transform: translateY(-10px);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh);
+    opacity: 0;
+  }
+}
+
+@keyframes snow {
+  0% {
+    transform: translateY(-10px) rotate(0deg);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(100px);
+  }
+}
+
+@keyframes lightning {
+  0%,
+  95%,
+  98% {
+    opacity: 0;
+  }
+  96%,
+  97% {
+    opacity: 1;
+  }
+}
+
+.rain-drop {
+  @apply absolute w-0.5 h-10 bg-blue-200/30 rounded-full;
+  animation: rain linear infinite;
+}
+
+.snow-flake {
+  @apply absolute w-2 h-2 bg-white rounded-full;
+  animation: snow linear infinite;
+}
+
+.cloud {
+  @apply absolute w-32 h-16 bg-white/20 rounded-full;
+  animation: float 30s linear infinite;
+}
+
+.cloud::before {
+  content: "";
+  @apply absolute w-20 h-20 -top-10 left-6 bg-white/20 rounded-full;
+}
+
+.lightning {
+  @apply absolute inset-0 bg-white/10;
+  animation: lightning 5s infinite;
+}
 @layer base {
   :root {
     --background: 0 0% 100%;

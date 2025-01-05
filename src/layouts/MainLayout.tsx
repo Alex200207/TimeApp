@@ -1,20 +1,36 @@
 import { FC, PropsWithChildren } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { WeatherBackground } from "@/components/WeatherBackground";
+import { WeatherApiResponse } from "@/types";
 
 interface MainLayoutProps extends PropsWithChildren {
   onAddCity: (newCity: string) => void;
+  weather: WeatherApiResponse | null;
 }
 
-const MainLayout: FC<MainLayoutProps> = ({ children, onAddCity }) => {
+const MainLayout: FC<MainLayoutProps> = ({ children, onAddCity, weather }) => {
+  const weatherCondition = weather?.weather[0].main.toLowerCase() as
+    | "clear"
+    | "cloudy"
+    | "rain"
+    | "snow"
+    | "storm"
+    | "night";
+
+  const validWeather = ["clear", "cloudy", "rain", "snow", "storm", "night"];
+  const selectedWeather = validWeather.includes(weatherCondition)
+    ? weatherCondition
+    : "clear";
+
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen relative">
+      <WeatherBackground weather={selectedWeather} />
+
       <Header onAddCity={onAddCity} />
 
-      <main className="flex-grow flex justify-center items-center w-full px- sm:px-6 lg:px-8">
-        <div className="w-full max-w-7xl mx-auto">
-          {children}
-        </div>
+      <main className="flex-grow flex justify-center items-center w-full px-4 sm:px-6 lg:px-8">
+        <div className="w-full max-w-7xl mx-auto">{children}</div>
       </main>
 
       <Footer />

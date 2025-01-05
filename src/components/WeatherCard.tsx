@@ -21,8 +21,8 @@ const WeatherCard = ({ city }: WeatherCardProps) => {
   );
 
   return (
-    <div className="flex justify-center items-center p-4">
-      <Card className="w-[380px] overflow-hidden bg-gradient-to-br from-blue-50 to-white border-none shadow-xl">
+    <div className="flex justify-center items-center p-2 ">
+      <Card className="w-[380px] overflow-hidden bg-white bg-opacity-10 backdrop-blur-xl border-none">
         <CardHeader className="pb-2 space-y-4">
           <div className="flex justify-between items-start">
             <div>
@@ -120,7 +120,7 @@ const WeatherCard = ({ city }: WeatherCardProps) => {
           </div>
         </CardContent>
 
-        <CardFooter className="bg-gradient-to-r from-blue-50 to-blue-100 py-3">
+        <CardFooter className="bg-gradient-to-r from-blue-50 to-blue-100 py-3 border-none" >
           <p className="text-xs text-blue-600 w-full text-center">
             Última actualización:{" "}
             {new Date((weather?.dt ?? 0) * 1000).toLocaleTimeString([], {
