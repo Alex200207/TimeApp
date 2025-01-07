@@ -1,11 +1,21 @@
 import axios from "axios";
 
-export const getWeather = async (city: string) => {
-  console.log(city);
-  const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=cd0fff38e7266bc916f27925c6ba95b2&units=metric&lang=es`;
+interface City {
+  name: string;
+  country: string;
+  state?: string;
+}
 
-  const response = await axios.get(url);
+export const getWeather = async (city: City) => {
+  const { name, country } = city;
 
-  console.log(response.data);
-  return response.data;
+  const url = `https://api.openweathermap.org/data/2.5/weather?q=${name}, ${country}&appid=cd0fff38e7266bc916f27925c6ba95b2&units=metric&lang=es`;
+
+  try {
+    const response = await axios.get(url);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching weather data:", error);
+    throw error;
+  }
 };

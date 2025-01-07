@@ -58,3 +58,9 @@ export interface SysData {
   sunrise: number;
   sunset: number;
 }
+
+export interface City {
+  name: string;
+  country: string;
+  state?: string;
+}

@@ -1,9 +1,11 @@
 import {Card,CardContent,CardDescription, CardFooter,CardHeader,CardTitle,} from "@/components/ui/card";
 import {Cloud,Droplets,Eye,Sunrise,Sunset,Thermometer,Wind,} from "lucide-react";
 import useGetWeather from "@/hooks/useGetWeather";
+import { City, WeatherApiResponse } from "@/types";
 
 interface WeatherCardProps {
-  city: string;
+  city: City
+  weather: WeatherApiResponse | null;
 }
 const WeatherCard = ({ city }: WeatherCardProps) => {
   const { weather } = useGetWeather(city);
@@ -22,7 +24,7 @@ const WeatherCard = ({ city }: WeatherCardProps) => {
 
   return (
     <div className="flex justify-center items-center p-2 ">
-      <Card className="w-[380px] overflow-hidden bg-white bg-opacity-10 backdrop-blur-xl border-none">
+      <Card className="w-[380px] overflow-hidden bg-transparent bg-opacity-10 backdrop-blur-xl border-none">
         <CardHeader className="pb-2 space-y-4">
           <div className="flex justify-between items-start">
             <div>
