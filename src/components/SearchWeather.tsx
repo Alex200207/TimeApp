@@ -1,16 +1,12 @@
 import { ChangeEvent, useState, useEffect } from "react";
 import { Input } from "./ui/input";
 import axios from "axios";
+import { City } from "@/types"; // Adjust the import path as necessary
 
-const API_KEY = "cd0fff38e7266bc916f27925c6ba95b2"; 
+const API_KEY = "cd0fff38e7266bc916f27925c6ba95b2";
 
 interface SearchWeatherProps {
-  onAddCity: (newCity: City) => void; 
-}
-
-interface City {
-  name: string;
-  country: string;
+  onAddCity: (newCity: City) => void;
 }
 
 const SearchWeather = ({ onAddCity }: SearchWeatherProps) => {
@@ -21,7 +17,7 @@ const SearchWeather = ({ onAddCity }: SearchWeatherProps) => {
   useEffect(() => {
     const fetchCities = async () => {
       if (inputValue.length < 3) {
-        setCities([]);s
+        setCities([]);
         return;
       }
 
@@ -31,7 +27,8 @@ const SearchWeather = ({ onAddCity }: SearchWeatherProps) => {
           `https://api.openweathermap.org/geo/1.0/direct?q=${inputValue}&limit=5&appid=${API_KEY}`
         );
         const data = response.data;
-        setCities(data); 
+        setCities(data);
+        console.log("Fetched cities:", data);
       } catch (error) {
         console.error("Error fetching cities:", error);
         setCities([]);
@@ -41,19 +38,18 @@ const SearchWeather = ({ onAddCity }: SearchWeatherProps) => {
     };
 
     const debounceTimer = setTimeout(fetchCities, 300);
-    return () => clearTimeout(debounceTimer); 
+    return () => clearTimeout(debounceTimer);
   }, [inputValue]);
 
   const onInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setInputValue(event.target.value); 
+    setInputValue(event.target.value);
   };
 
   const handleCitySelect = (selectedCity: City) => {
-  
-    const cleanCityName = selectedCity.name.replace(/\(.*\)/, "").trim();// Eliminar el texto entre paréntesis y los espacios adicionales
-    onAddCity({ name: cleanCityName, country: selectedCity.country }); 
-    setInputValue(""); 
-    setCities([]); 
+    const cleanCityName = selectedCity.name.replace(/\(.*\)/, "").trim(); // Eliminar el texto entre paréntesis y los espacios adicionales
+    onAddCity({ name: cleanCityName, country: selectedCity.country });
+    setInputValue("");
+    setCities([]);
   };
 
   return (
@@ -74,9 +70,9 @@ const SearchWeather = ({ onAddCity }: SearchWeatherProps) => {
               <div
                 key={`${city.name}-${city.country}-${index}`}
                 className="p-2 hover:bg-gray-100 cursor-pointer"
-                onClick={() => handleCitySelect(city)} 
+                onClick={() => handleCitySelect(city)}
               >
-                {city.name}, {city.country}
+                {city.state}, {city.country}
               </div>
             ))
           ) : (
