@@ -21,7 +21,7 @@ const SearchWeather = ({ onAddCity }: SearchWeatherProps) => {
   useEffect(() => {
     const fetchCities = async () => {
       if (inputValue.length < 3) {
-        setCities([]);
+        setCities([]);s
         return;
       }
 
