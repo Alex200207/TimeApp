@@ -88,7 +88,7 @@ const SearchWeather = ({ onAddCity }: SearchWeatherProps) => {
       />
       {inputValue.length >= 3 && (
         <div
-          className={`absolute w-full mt-1 ${colors.background} border rounded-md shadow-lg z-10`}
+          className={`absolute w-full mt-1 bg-slate-50 border rounded-md shadow-lg z-10`}
         >
           {loading ? (
             <div className={`p-2 ${colors.text}`}>Loading...</div>

@@ -9,8 +9,15 @@ interface WeatherBackgroundProps {
 const WeatherBackground: FC<WeatherBackgroundProps> = ({ weather }) => {
   if (!weather) return null;
 
-  const hour = new Date().getHours();
-  const isDaytime = hour >= 6 && hour < 18;
+  // desempaquetando valores de la respuesta de la API
+  const { sunrise, sunset } = weather.sys;
+
+  // calculo de la hora actual en segundos con funcion incoporada de Date
+  const currentTime = Math.floor(Date.now() / 1000);
+
+  // dermine si es de dia o noche ,,,
+  const isDaytime = currentTime >= sunrise && currentTime < sunset;
+
   const condition = weather.weather[0].main.toLowerCase();
 
   const getBackgroundStyle = () => {
@@ -58,7 +65,7 @@ const WeatherBackground: FC<WeatherBackgroundProps> = ({ weather }) => {
         <div className={`absolute inset-0 blur-xl ${isDaytime ? 'bg-yellow-200/30' : 'bg-gray-100/10'}`} />
       </div>
 
-      {/* Night stars */}
+      {/* busque ayuda para estp*/}
       {!isDaytime && (
         <div className="absolute inset-0">
           {Array(50).fill(0).map((_, i) => (
@@ -77,7 +84,7 @@ const WeatherBackground: FC<WeatherBackgroundProps> = ({ weather }) => {
         </div>
       )}
 
-      {/* Weather effects */}
+     
       <div className="absolute inset-0 grid grid-cols-8 md:grid-cols-12 gap-8 p-8">
         {Array(24).fill(0).map((_, i) => {
           const WeatherIcon = (() => {
