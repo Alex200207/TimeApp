@@ -14,6 +14,32 @@ const SearchWeather = ({ onAddCity }: SearchWeatherProps) => {
   const [cities, setCities] = useState<City[]>([]);
   const [loading, setLoading] = useState(false);
 
+  const hour = new Date().getHours();
+  const isDaytime = hour >= 6 && hour < 18;
+
+  // Obtener las clases de color basadas en el momento del día
+  const getColorClasses = () => {
+    if (isDaytime) {
+      return {
+        background: "bg-white/10",
+        text: "text-gray-900",
+        accent: "text-blue-600",
+        border: "border-white/20",
+        shadow: "shadow-light",
+      };
+    } else {
+      return {
+        background: "bg-black/20",
+        text: "text-white",
+        accent: "text-blue-300",
+        border: "border-white/10",
+        shadow: "shadow-dark",
+      };
+    }
+  };
+
+  const colors = getColorClasses();
+
   useEffect(() => {
     const fetchCities = async () => {
       if (inputValue.length < 3) {
@@ -58,12 +84,14 @@ const SearchWeather = ({ onAddCity }: SearchWeatherProps) => {
         placeholder="Search for a city"
         value={inputValue}
         onChange={onInputChange}
-        className="w-full p-2 bg-transparent text-black focus:outline-none placeholder:text-black"
+        className={`w-full p-2 bg-transparent  ${colors.text} focus:outline-none placeholder:${colors.text}`}
       />
       {inputValue.length >= 3 && (
-        <div className="absolute w-full mt-1 bg-white border rounded-md shadow-lg z-10">
+        <div
+          className={`absolute w-full mt-1 ${colors.background} border rounded-md shadow-lg z-10`}
+        >
           {loading ? (
-            <div className="p-2 text-gray-500">Loading...</div>
+            <div className={`p-2 ${colors.text}`}>Loading...</div>
           ) : cities.length > 0 ? (
             cities.map((city, index) => (
               <div

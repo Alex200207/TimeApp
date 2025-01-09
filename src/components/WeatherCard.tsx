@@ -103,7 +103,7 @@ const WeatherCard = ({ city }: WeatherCardProps) => {
 
   return (
     <div className="flex justify-center items-center p-2">
-      <Card className={`w-[380px] overflow-hidden ${colors.cardBg} backdrop-blur-xl border ${colors.border}`}>
+      <Card className={`w-[380px] overflow-hidden ${colors.cardBg} backdrop-blur-sm border ${colors.border}`}>
         <CardHeader className="pb-2 space-y-4">
           <div className="flex justify-between items-start">
             <div>
