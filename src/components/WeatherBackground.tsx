@@ -1,91 +1,136 @@
+import { FC } from 'react';
+import { WeatherApiResponse } from '@/types';
+import { Sun, Moon, Star, Cloud, CloudRain, CloudSnow, CloudLightning, CloudFog } from 'lucide-react';
+
 interface WeatherBackgroundProps {
-  weather: "clear" | "cloudy" | "rain" | "snow" | "storm" | "night";
+  weather: WeatherApiResponse | null;
 }
 
-export function WeatherBackground({ weather }: WeatherBackgroundProps) {
-  const backgrounds = {
-    clear: "bg-gradient-to-br from-sky-400 via-sky-500 to-sky-600",
-    cloudy: "bg-gradient-to-br from-gray-300 via-gray-400 to-gray-500",
-    rain: "bg-gradient-to-br from-slate-600 via-slate-700 to-slate-800",
-    snow: "bg-gradient-to-br from-blue-100 via-blue-200 to-blue-300",
-    storm: "bg-gradient-to-br from-slate-800 via-slate-900 to-black",
-    night: "bg-gradient-to-br from-indigo-900 via-purple-900 to-violet-950",
+const WeatherBackground: FC<WeatherBackgroundProps> = ({ weather }) => {
+  if (!weather) return null;
+
+  const hour = new Date().getHours();
+  const isDaytime = hour >= 6 && hour < 18;
+  const condition = weather.weather[0].main.toLowerCase();
+
+  const getBackgroundStyle = () => {
+    const baseStyle = isDaytime
+      ? 'bg-gradient-to-b from-sky-400 via-blue-300 to-blue-400'
+      : 'bg-gradient-to-b from-blue-900 via-indigo-900 to-purple-900';
+
+    switch (condition) {
+      case 'clear':
+        return baseStyle;
+      case 'clouds':
+        return isDaytime
+          ? 'bg-gradient-to-b from-gray-300 via-blue-200 to-gray-300'
+          : 'bg-gradient-to-b from-gray-900 via-indigo-900 to-gray-800';
+      case 'rain':
+        return isDaytime
+          ? 'bg-gradient-to-b from-gray-400 via-blue-300 to-gray-500'
+          : 'bg-gradient-to-b from-gray-800 via-indigo-900 to-gray-900';
+      case 'snow':
+        return isDaytime
+          ? 'bg-gradient-to-b from-gray-100 via-blue-50 to-white'
+          : 'bg-gradient-to-b from-gray-800 via-blue-900 to-gray-900';
+      case 'thunderstorm':
+        return 'bg-gradient-to-b from-gray-900 via-purple-900 to-gray-900';
+      case 'fog':
+      case 'mist':
+        return isDaytime
+          ? 'bg-gradient-to-b from-gray-300 via-gray-200 to-gray-300'
+          : 'bg-gradient-to-b from-gray-800 via-gray-700 to-gray-800';
+      default:
+        return baseStyle;
+    }
   };
 
-  return (
-    <>
-      <div
-        className={`absolute inset-0 transition-colors duration-1000 ease-in-out ${backgrounds[weather]}`}
-      />
+  const TimeIcon = isDaytime ? Sun : Moon;
 
-      <div className="absolute inset-0 overflow-hidden">
-        {weather === "rain" && <RainEffect />}
-        {weather === "snow" && <SnowEffect />}
-        {(weather === "clear" || weather === "cloudy") && <CloudEffect />}
-        {weather === "storm" && <LightningEffect />}
+  return (
+    <div className={`absolute inset-0 -z-10 overflow-hidden ${getBackgroundStyle()} transition-all duration-1000`}>
+      {/* Main celestial body (sun/moon) */}
+      <div className={`absolute ${isDaytime ? '-top-20 right-20' : 'top-20 right-20'} transition-all duration-1000`}>
+        <TimeIcon 
+          className={`w-40 h-40 ${isDaytime ? 'text-yellow-200 animate-spin-slow' : 'text-gray-100'}`}
+          style={{ animationDuration: '120s' }}
+        />
+        <div className={`absolute inset-0 blur-xl ${isDaytime ? 'bg-yellow-200/30' : 'bg-gray-100/10'}`} />
       </div>
-    </>
-  );
-}
 
-function RainEffect() {
-  return (
-    <div className="absolute inset-0" aria-hidden="true">
-      {[...Array(50)].map((_, i) => (
-        <div
-          key={i}
-          className="rain-drop"
-          style={{
-            left: `${Math.random() * 100}%`,
-            animationDelay: `${Math.random() * 2}s`,
-            animationDuration: `${0.5 + Math.random() * 0.3}s`,
-          }}
-        />
-      ))}
+      {/* Night stars */}
+      {!isDaytime && (
+        <div className="absolute inset-0">
+          {Array(50).fill(0).map((_, i) => (
+            <div
+              key={i}
+              className="absolute"
+              style={{
+                top: `${Math.random() * 100}%`,
+                left: `${Math.random() * 100}%`,
+                animation: `twinkle ${2 + Math.random() * 3}s infinite ${Math.random() * 2}s`
+              }}
+            >
+              <Star className="w-2 h-2 text-white/70" />
+            </div>
+          ))}
+        </div>
+      )}
+
+      {/* Weather effects */}
+      <div className="absolute inset-0 grid grid-cols-8 md:grid-cols-12 gap-8 p-8">
+        {Array(24).fill(0).map((_, i) => {
+          const WeatherIcon = (() => {
+            switch (condition) {
+              case 'clear': return isDaytime ? Sun : Moon;
+              case 'clouds': return Cloud;
+              case 'rain': return CloudRain;
+              case 'snow': return CloudSnow;
+              case 'thunderstorm': return CloudLightning;
+              case 'fog':
+              case 'mist':
+                return CloudFog;
+              default: return isDaytime ? Sun : Moon;
+            }
+          })();
+
+          return (
+            <div
+              key={i}
+              className={`transform transition-all duration-1000 ${
+                isDaytime ? 'opacity-20' : 'opacity-10'
+              }`}
+              style={{
+                animation: `float ${3 + Math.random() * 2}s infinite ${i * 0.2}s`,
+                transform: `translateY(${Math.sin(i) * 10}px)`
+              }}
+            >
+              <WeatherIcon className="w-8 h-8" />
+            </div>
+          );
+        })}
+      </div>
+
+      {/* Gradient overlays */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+      
+      {/* Add these keyframes to your global CSS or style tag */}
+      <style>{`
+        @keyframes twinkle {
+          0%, 100% { opacity: 0.4; }
+          50% { opacity: 1; }
+        }
+        @keyframes float {
+          0%, 100% { transform: translateY(0px); }
+          50% { transform: translateY(-20px); }
+        }
+        @keyframes spin-slow {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
+        }
+      `}</style>
     </div>
   );
-}
+};
 
-function SnowEffect() {
-  return (
-    <div className="absolute inset-0" aria-hidden="true">
-      {[...Array(50)].map((_, i) => (
-        <div
-          key={i}
-          className="snow-flake"
-          style={{
-            left: `${Math.random() * 100}%`,
-            animationDelay: `${Math.random() * 3}s`,
-            animationDuration: `${3 + Math.random() * 2}s`,
-          }}
-        />
-      ))}
-    </div>
-  );
-}
-
-function CloudEffect() {
-  return (
-    <div className="absolute inset-0" aria-hidden="true">
-      {[...Array(3)].map((_, i) => (
-        <div
-          key={i}
-          className="cloud"
-          style={{
-            left: `${Math.random() * 100}%`,
-            top: `${20 + Math.random() * 20}%`,
-            animationDelay: `${Math.random() * 30}s`,
-          }}
-        />
-      ))}
-    </div>
-  );
-}
-
-function LightningEffect() {
-  return (
-    <div className="absolute inset-0" aria-hidden="true">
-      <div className="lightning" />
-    </div>
-  );
-}
+export default WeatherBackground;

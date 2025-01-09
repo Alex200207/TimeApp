@@ -7,11 +7,11 @@ interface City {
 }
 
 export const getWeather = async (city: City) => {
-  const { name, country } = city;
+  const { name, country, state } = city;
 
-  const url = `https://api.openweathermap.org/data/2.5/weather?q=${name}, ${country}&appid=cd0fff38e7266bc916f27925c6ba95b2&units=metric&lang=es`;
+  const url = `https://api.openweathermap.org/data/2.5/weather?q=${name || state}, ${country}&appid=cd0fff38e7266bc916f27925c6ba95b2&units=metric&lang=es`;
 
-  try {
+  try {   
     const response = await axios.get(url);
     return response.data;
   } catch (error) {

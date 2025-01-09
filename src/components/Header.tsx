@@ -3,7 +3,7 @@ import SearchWeather from "./SearchWeather";
 import DropDown from "./DropDown";
 import MenuNavigator from "./MenuNavigator";
 
-import { City } from "../types"; // Adjust the import path as necessary
+import { City } from "../types"; 
 
 interface HeaderProps {
   onAddCity: (newCity: City) => void;
@@ -16,7 +16,10 @@ const Header: React.FC<HeaderProps> = ({ onAddCity }) => {
     <header className="p-4 shadow-md z-50 bg-none bg-opacity-10 backdrop-blur-xl border-none">
       <nav className="max-w-7xl mx-auto">
         <div className="flex justify-between items-center space-x-4">
-          <div className="text-2xl font-semibold flex-1">TimeApp</div>
+          <div className="text-2xl font-semibold flex-1 text-center lg:text-left">
+            <span className="text-blue-500">Time</span>App 
+
+          </div>
 
           <div className="flex-1">
             <SearchWeather onAddCity={onAddCity} />

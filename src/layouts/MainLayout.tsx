@@ -1,6 +1,7 @@
 import { FC, PropsWithChildren } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import WeatherBackground from "@/components/WeatherBackground";
 
 import { City, WeatherApiResponse } from "@/types";
 
@@ -9,11 +10,10 @@ interface MainLayoutProps extends PropsWithChildren {
   weather: WeatherApiResponse | null;
 }
 
-const MainLayout: FC<MainLayoutProps> = ({ children, onAddCity, }) => {
-
+const MainLayout: FC<MainLayoutProps> = ({ children, onAddCity, weather }) => {
   return (
     <div className="flex flex-col min-h-screen relative">
-   
+      <WeatherBackground weather={weather} />
 
       <Header onAddCity={onAddCity} />
 

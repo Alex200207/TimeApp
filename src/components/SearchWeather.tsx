@@ -1,7 +1,7 @@
 import { ChangeEvent, useState, useEffect } from "react";
 import { Input } from "./ui/input";
 import axios from "axios";
-import { City } from "@/types"; // Adjust the import path as necessary
+import { City } from "@/types";
 
 const API_KEY = "cd0fff38e7266bc916f27925c6ba95b2";
 
@@ -28,7 +28,6 @@ const SearchWeather = ({ onAddCity }: SearchWeatherProps) => {
         );
         const data = response.data;
         setCities(data);
-        console.log("Fetched cities:", data);
       } catch (error) {
         console.error("Error fetching cities:", error);
         setCities([]);
@@ -72,7 +71,7 @@ const SearchWeather = ({ onAddCity }: SearchWeatherProps) => {
                 className="p-2 hover:bg-gray-100 cursor-pointer"
                 onClick={() => handleCitySelect(city)}
               >
-                {city.state}, {city.country}
+                {city.name}, {city.country} , {city.state}
               </div>
             ))
           ) : (
