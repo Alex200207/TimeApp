@@ -96,7 +96,7 @@ const SearchWeather = ({ onAddCity }: SearchWeatherProps) => {
             cities.map((city, index) => (
               <div
                 key={`${city.name}-${city.country}-${index}`}
-                className="p-2 hover:bg-gray-100 cursor-pointer"
+                className="p-5 hover:bg-gray-100 cursor-pointer"
                 onClick={() => handleCitySelect(city)}
               >
                 {city.name}, {city.country} , {city.state}

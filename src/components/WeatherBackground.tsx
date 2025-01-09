@@ -57,7 +57,7 @@ const WeatherBackground: FC<WeatherBackgroundProps> = ({ weather }) => {
   return (
     <div className={`absolute inset-0 -z-10 overflow-hidden ${getBackgroundStyle()} transition-all duration-1000`}>
       {/* Main celestial body (sun/moon) */}
-      <div className={`absolute ${isDaytime ? '-top-20 right-20' : 'top-20 right-20'} transition-all duration-1000`}>
+      <div className={`absolute ${isDaytime ? 'top-10 right-20' : 'top-20 right-20'} transition-all duration-1000`}>
         <TimeIcon 
           className={`w-40 h-40 ${isDaytime ? 'text-yellow-200 animate-spin-slow' : 'text-gray-100'}`}
           style={{ animationDuration: '120s' }}

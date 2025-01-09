@@ -37,7 +37,7 @@ const Header: React.FC<HeaderProps> = ({ onAddCity }) => {
   const colors = getColorClasses();
 
   return (
-    <header className={`p-4 ${colors.shadow} z-50 ${colors.background} backdrop-blur-xl border-b ${colors.border}`}>
+    <header className={`p-4 ${colors.shadow} z-50 ${colors.background} backdrop-blur- border-b ${colors.border}`}>
       <nav className="max-w-7xl mx-auto">
         <div className="flex justify-between items-center space-x-4">
           <div className={`text-2xl font-semibold flex-1 text-center lg:text-left ${colors.text}`}>
