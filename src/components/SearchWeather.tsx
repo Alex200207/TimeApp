@@ -2,8 +2,7 @@ import { ChangeEvent, useState, useEffect } from "react";
 import { Input } from "./ui/input";
 import axios from "axios";
 import { City } from "@/types";
-
-const API_KEY = "cd0fff38e7266bc916f27925c6ba95b2";
+import { API_KEY, API_URL_GEO } from "@/constants/api";
 
 interface SearchWeatherProps {
   onAddCity: (newCity: City) => void;
@@ -50,7 +49,7 @@ const SearchWeather = ({ onAddCity }: SearchWeatherProps) => {
       setLoading(true);
       try {
         const response = await axios.get(
-          `https://api.openweathermap.org/geo/1.0/direct?q=${inputValue}&limit=5&appid=${API_KEY}`
+          `${API_URL_GEO}q=${inputValue}&limit=5&appid=${API_KEY}`
         );
         const data = response.data;
         setCities(data);

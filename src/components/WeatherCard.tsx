@@ -27,48 +27,48 @@ const WeatherCard = ({ city }: WeatherCardProps) => {
   const { weather } = useGetWeather(city);
   const hour = new Date().getHours();
   const isDaytime = hour >= 6 && hour < 18;
-  const condition = weather?.weather[0].main.toLowerCase() || 'clear';
+  const condition = weather?.weather[0].main.toLowerCase() || "clear";
 
   // Función para determinar las clases de color basadas en el momento del día y el clima
   const getColorClasses = () => {
-    const baseTextColor = isDaytime ? 'text-gray-900' : 'text-white';
-    const secondaryTextColor = isDaytime ? 'text-gray-700' : 'text-gray-200';
-    const mutedTextColor = isDaytime ? 'text-gray-600' : 'text-gray-300';
-    const iconColor = isDaytime ? 'text-blue-600' : 'text-blue-300';
-    const borderColor = isDaytime ? 'border-white/20' : 'border-white/10';
-    
+    const baseTextColor = isDaytime ? "text-gray-900" : "text-white";
+    const secondaryTextColor = isDaytime ? "text-gray-700" : "text-gray-200";
+    const mutedTextColor = isDaytime ? "text-gray-600" : "text-gray-300";
+    const iconColor = isDaytime ? "text-blue-600" : "text-blue-300";
+    const borderColor = isDaytime ? "border-white/20" : "border-white/10";
+
     switch (condition) {
-      case 'clear':
+      case "clear":
         return {
           title: baseTextColor,
           description: secondaryTextColor,
           text: mutedTextColor,
           icon: iconColor,
           border: borderColor,
-          cardBg: 'bg-white/10',
-          footerBg: isDaytime ? 'bg-white/20' : 'bg-black/20'
+          cardBg: "bg-white/10",
+          footerBg: isDaytime ? "bg-white/20" : "bg-black/20",
         };
-      case 'clouds':
-      case 'rain':
-      case 'snow':
+      case "clouds":
+      case "rain":
+      case "snow":
         return {
-          title: 'text-white',
-          description: 'text-gray-200',
-          text: 'text-gray-300',
-          icon: 'text-blue-300',
-          border: 'border-white/10',
-          cardBg: 'bg-black/20',
-          footerBg: 'bg-black/30'
+          title: "text-white",
+          description: "text-gray-200",
+          text: "text-gray-300",
+          icon: "text-blue-300",
+          border: "border-white/10",
+          cardBg: "bg-black/20",
+          footerBg: "bg-black/30",
         };
-      case 'thunderstorm':
+      case "thunderstorm":
         return {
-          title: 'text-white',
-          description: 'text-purple-200',
-          text: 'text-gray-200',
-          icon: 'text-purple-300',
-          border: 'border-white/10',
-          cardBg: 'bg-black/30',
-          footerBg: 'bg-black/40'
+          title: "text-white",
+          description: "text-purple-200",
+          text: "text-gray-200",
+          icon: "text-purple-300",
+          border: "border-white/10",
+          cardBg: "bg-black/30",
+          footerBg: "bg-black/40",
         };
       default:
         return {
@@ -77,8 +77,8 @@ const WeatherCard = ({ city }: WeatherCardProps) => {
           text: mutedTextColor,
           icon: iconColor,
           border: borderColor,
-          cardBg: 'bg-white/10',
-          footerBg: isDaytime ? 'bg-white/20' : 'bg-black/20'
+          cardBg: "bg-white/10",
+          footerBg: isDaytime ? "bg-white/20" : "bg-black/20",
         };
     }
   };
@@ -103,14 +103,18 @@ const WeatherCard = ({ city }: WeatherCardProps) => {
 
   return (
     <div className="flex justify-center items-center p-2">
-      <Card className={`w-[380px] overflow-hidden ${colors.cardBg} backdrop-blur-sm border ${colors.border}`}>
+      <Card
+        className={`w-[380px] overflow-hidden ${colors.cardBg} backdrop-blur-sm border ${colors.border}`}
+      >
         <CardHeader className="pb-2 space-y-4">
           <div className="flex justify-between items-start">
             <div>
               <CardTitle className={`text-3xl font-bold ${colors.title}`}>
                 {weather?.name}, {weather?.sys.country}
               </CardTitle>
-              <CardDescription className={`text-lg font-medium ${colors.description} capitalize`}>
+              <CardDescription
+                className={`text-lg font-medium ${colors.description} capitalize`}
+              >
                 {weather?.weather[0].description}
               </CardDescription>
             </div>
