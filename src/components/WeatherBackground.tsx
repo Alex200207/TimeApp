@@ -155,21 +155,7 @@ const WeatherBackground: FC<WeatherBackgroundProps> = ({ weather }) => {
       {/* Gradient overlays */}
       <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
 
-      {/* Add these keyframes to your global CSS or style tag */}
-      <style>{`
-        @keyframes twinkle {
-          0%, 100% { opacity: 0.4; }
-          50% { opacity: 1; }
-        }
-        @keyframes float {
-          0%, 100% { transform: translateY(0px); }
-          50% { transform: translateY(-20px); }
-        }
-        @keyframes spin-slow {
-          from { transform: rotate(0deg); }
-          to { transform: rotate(360deg); }
-        }
-      `}</style>
+
     </div>
   );
 };
