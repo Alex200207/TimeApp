@@ -10,7 +10,7 @@ import {
 const MenuNavigator = () => {
   return (
     <NavigationMenu >
-      <NavigationMenuList className="flex space-x-6 text-black">
+      <NavigationMenuList className="flex space-x-6 text-while">
         <NavigationMenuItem>
           <NavigationMenuTrigger className="p-2 rounded-lg bg-transparent">
             item three
