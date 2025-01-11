@@ -23,7 +23,7 @@ const SearchWeather = ({ onAddCity }: SearchWeatherProps) => {
         placeholder="Search for a city"
         value={inputValue}
         onChange={onInputChange}
-        className={`w-full p-2 bg-transparent  ${colors.text} focus:outline-none placeholder:${colors.text}`}
+        className={`w-full p-2 bg-transparent  ${colors.text} focus:outline-none placeholder:text-zinc-50`}
       />
       {inputValue.length >= 3 && (
         <div

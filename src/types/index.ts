@@ -22,6 +22,7 @@ export interface WeatherApiResponse {
   id: number;
   name: string;
   cod: number;
+  
 }
 
 export interface Weather {

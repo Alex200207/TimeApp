@@ -18,6 +18,7 @@ import {
 import useGetWeather from "@/hooks/useGetWeather";
 import { City, WeatherApiResponse } from "@/types";
 import { getWeatherColor } from "../utils/getWeatherColor";
+import { useEffect, useState } from "react";
 
 interface WeatherCardProps {
   city: City;
@@ -26,8 +27,13 @@ interface WeatherCardProps {
 
 const WeatherCard = ({ city }: WeatherCardProps) => {
   const { weather } = useGetWeather(city);
+  const [colors, setColors] = useState(getWeatherColor(weather)); 
 
-  const colors = getWeatherColor(weather);
+  useEffect(() => {
+    if (weather) {
+      setColors(getWeatherColor(weather)); 
+    }
+  }, [weather]);
 
   const WeatherInfo = ({
     icon: Icon,

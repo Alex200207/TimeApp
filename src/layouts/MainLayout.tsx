@@ -8,6 +8,7 @@ import { City, WeatherApiResponse } from "@/types";
 interface MainLayoutProps extends PropsWithChildren {
   onAddCity: (newCity: City) => void;
   weather: WeatherApiResponse | null;
+  city: City;
 }
 
 const MainLayout: FC<MainLayoutProps> = ({ children, onAddCity, weather }) => {
