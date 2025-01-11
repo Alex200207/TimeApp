@@ -1,11 +1,6 @@
 import { API_KEY, API_URL } from "@/constants/api";
 import axios from "axios";
-
-interface City {
-  name: string;
-  country: string;
-  state?: string;
-}
+import { City } from "@/types";
 
 export const getWeather = async (city: City) => {
   const { name, country, state } = city;
