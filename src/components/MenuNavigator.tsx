@@ -6,18 +6,22 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
+interface MenuNavigatorProps {
+  name: string;
+  content: string;
+}
 
-const MenuNavigator = () => {
+const MenuNavigator = ({name, content}: MenuNavigatorProps) => {
   return (
     <NavigationMenu >
       <NavigationMenuList className="flex space-x-6 text-while">
         <NavigationMenuItem>
           <NavigationMenuTrigger className="p-2 rounded-lg bg-transparent">
-            item three
+            {name}
           </NavigationMenuTrigger>
           <NavigationMenuContent className="p-2">
             <NavigationMenuLink className="p-5 text-center">
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+              {content}
             </NavigationMenuLink>
           </NavigationMenuContent>
         </NavigationMenuItem>

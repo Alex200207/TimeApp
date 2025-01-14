@@ -38,7 +38,7 @@ const Header: React.FC<HeaderProps> = ({ onAddCity }) => {
 
   return (
     <header
-      className={`p-4 ${colors.shadow} z-50 ${colors.background} backdrop-blur- border-b ${colors.border}`}
+      className={`p-4 ${colors.shadow} z-50 ${colors.background} backdrop-blur- border-b ${colors.border} flex space-x-4 items-center`}
     >
       <nav className="max-w-7xl mx-auto">
         <div className="flex justify-between items-center space-x-4">
@@ -62,9 +62,20 @@ const Header: React.FC<HeaderProps> = ({ onAddCity }) => {
           <div
             className={`hidden lg:flex items-center space-x-6 ${colors.text}`}
           >
-            <MenuNavigator />
-            <MenuNavigator />
-            <MenuNavigator />
+            <MenuNavigator 
+              name= "Home"
+              content='Algo'
+
+            />
+            <MenuNavigator
+              name= "Acerca de"
+              content='Algo'
+            
+            />
+            <MenuNavigator 
+              name= "Contactame"
+              content='Algo'
+            />
           </div>
         </div>
       </nav>

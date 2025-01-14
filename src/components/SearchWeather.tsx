@@ -20,7 +20,7 @@ const SearchWeather = ({ onAddCity }: SearchWeatherProps) => {
     <div className="relative">
       <Input
         type="text"
-        placeholder="Search for a city"
+        placeholder="Buscar una ciudad"
         value={inputValue}
         onChange={onInputChange}
         className={`w-full p-2 bg-transparent  ${colors.text} focus:outline-none placeholder:text-zinc-50`}
