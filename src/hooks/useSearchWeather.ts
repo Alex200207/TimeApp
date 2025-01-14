@@ -11,7 +11,6 @@ export const useSearchWeather = ({ onAddCity }: SearchWeatherProps) => {
   const [inputValue, setInputValue] = useState("");
   const [cities, setCities] = useState<City[]>([]);
   const [loading, setLoading] = useState(false);
-  
 
   const hour = new Date().getHours();
   const isDaytime = hour >= 6 && hour < 18;

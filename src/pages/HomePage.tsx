@@ -4,6 +4,7 @@ import MainLayout from "@/layouts/MainLayout";
 import { useState, useEffect } from "react";
 import { City } from "@/types";
 import { API_KEY, API_URL } from "@/constants/api";
+import WeatherForecast from "@/components/WeatherForecast";
 
 const HomePage = () => {
   const [city, setCity] = useState<City>({ name: "Jalapa", country: "NI" });
@@ -38,6 +39,7 @@ const HomePage = () => {
   return (
     <MainLayout onAddCity={onAddCity} weather={weather} city={city}>
       <WeatherCard city={city} weather={weather} />
+      <WeatherForecast />
     </MainLayout>
   );
 };
