@@ -6,9 +6,10 @@ import { City } from "../types";
 
 interface HeaderProps {
   onAddCity: (newCity: City) => void;
+  city: City;
 }
 
-const Header: React.FC<HeaderProps> = ({ onAddCity }) => {
+const Header: React.FC<HeaderProps> = ({ onAddCity, city }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const hour = new Date().getHours();
   const isDaytime = hour >= 6 && hour < 18;
@@ -49,7 +50,7 @@ const Header: React.FC<HeaderProps> = ({ onAddCity }) => {
           </div>
 
           <div className="flex-1">
-            <SearchWeather onAddCity={onAddCity} />
+            <SearchWeather onAddCity={onAddCity}  city={city}/>
           </div>
 
           <div

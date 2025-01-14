@@ -1,29 +1,36 @@
 import { useSearchWeather } from "@/hooks/useSearchWeather";
 import { Input } from "./ui/input";
 import { City } from "@/types";
+import { useEffect, useState } from "react";
+import { getWeatherColor } from "@/utils/getWeatherColor";
+import useGetWeather from "@/hooks/useGetWeather";
 
 interface SearchWeatherProps {
   onAddCity: (newCity: City) => void;
+  city: City;
 }
 
-const SearchWeather = ({ onAddCity }: SearchWeatherProps) => {
-  const {
-    inputValue,
-    onInputChange,
-    cities,
-    loading,
-    handleCitySelect,
-    colors,
-  } = useSearchWeather({ onAddCity });
+const SearchWeather = ({ onAddCity, city }: SearchWeatherProps) => {
+  const { weather } = useGetWeather(city);
+  const [colors, setColors] = useState(getWeatherColor(weather));
+
+  useEffect(() => {
+    if (weather) {
+      setColors(getWeatherColor(weather));
+    }
+  }, [weather]);
+
+  const { inputValue, onInputChange, cities, loading, handleCitySelect } =
+    useSearchWeather({ onAddCity });
 
   return (
     <div className="relative">
       <Input
         type="text"
-        placeholder="Buscar una ciudad"
+        placeholder="Buscar ciudad"
         value={inputValue}
         onChange={onInputChange}
-        className={`w-full p-2 bg-transparent  ${colors.text} focus:outline-none placeholder:text-zinc-50`}
+        className={`w-full p-2 ${colors.cardBg } opacity-100 ${colors.title} focus:outline-none placeholder:text-slate-50 `}
       />
       {inputValue.length >= 3 && (
         <div

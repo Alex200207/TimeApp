@@ -36,7 +36,7 @@ const HomePage = () => {
   };
 
   return (
-    <MainLayout onAddCity={onAddCity} weather={weather}>
+    <MainLayout onAddCity={onAddCity} weather={weather} city={city}>
       <WeatherCard city={city} weather={weather} />
     </MainLayout>
   );
