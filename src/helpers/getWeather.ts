@@ -21,6 +21,7 @@ export const getWeather = async (city: City) => {
 export const getPronostico = async () => {
   const url = `${API_URL_ONECALL}q=jalapa,NI&appid=${API_KEY}&units=metric&lang=es`;
 
+
   try {
     const response = await axios.get(url);
     return response.data.list;

@@ -6,6 +6,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { Skeleton } from "./ui/skeleton";
 import {
   Cloud,
   Droplets,
@@ -109,11 +110,16 @@ const WeatherCard = ({ city }: WeatherCardProps) => {
 
         <CardContent className="space-y-4">
           <div className="grid grid-cols-2 gap-3 py-4">
-            <WeatherInfo
-              icon={Droplets}
-              label="Humedad"
-              value={`${weather?.main.humidity}%`}
-            />
+            {weather ? (
+              <WeatherInfo
+                icon={Droplets}
+                label="Humedad"
+                value={`${weather?.main.humidity}%`}
+              />
+            ) : (
+              <Skeleton className="h-6 w-16" />
+            )}
+
             <WeatherInfo
               icon={Wind}
               label="Viento"
@@ -138,11 +144,15 @@ const WeatherCard = ({ city }: WeatherCardProps) => {
               label="Presión"
               value={`${weather?.main.pressure} hPa`}
             />
-            <WeatherInfo
-              icon={Cloud}
-              label="Nubes"
-              value={`${weather?.clouds.all}%`}
-            />
+            {weather ? (
+              <WeatherInfo
+                icon={Cloud}
+                label="Nubes"
+                value={`${weather.clouds.all}%`}
+              />
+            ) : (
+              <Skeleton className="h-6 w-16" />
+            )}
           </div>
 
           <div className={`border-t ${colors.border} pt-4`}>

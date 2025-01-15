@@ -4,7 +4,7 @@ import { City } from "@/types";
 import { API_KEY, API_URL } from "@/constants/api";
 
 export const useAddWeather = () => {
-  const [city, setCity] = useState<City>({ name: "tokyo", country: "JP" });
+  const [city, setCity] = useState<City>({ name: "jalapa", country: "NI" });
   const { weather } = useGetWeather(city);
 
   useEffect(() => {
