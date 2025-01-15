@@ -3,6 +3,7 @@ import SearchWeather from "./SearchWeather";
 import DropDown from "./DropDown";
 import MenuNavigator from "./MenuNavigator";
 import { City } from "../types";
+import useGetWeather from "@/hooks/useGetWeather";
 
 interface HeaderProps {
   onAddCity: (newCity: City) => void;
@@ -11,6 +12,7 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ onAddCity, city }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { weather } = useGetWeather(city);
   const hour = new Date().getHours();
   const isDaytime = hour >= 6 && hour < 18;
 
@@ -36,10 +38,11 @@ const Header: React.FC<HeaderProps> = ({ onAddCity, city }) => {
   };
 
   const colors = getColorClasses();
+  const backgroundColor = weather ? colors.background : "bg-gray-800"; 
 
   return (
     <header
-      className={`p-4 ${colors.shadow} z-50 ${colors.background} backdrop-blur- border-b ${colors.border} flex space-x-4 items-center`}
+      className={`p-4 ${colors.shadow} z-50 ${backgroundColor} backdrop-blur- border-b ${colors.border} flex space-x-4 items-center`}
     >
       <nav className="max-w-7xl mx-auto">
         <div className="flex justify-between items-center space-x-4">

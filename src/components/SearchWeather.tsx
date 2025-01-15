@@ -23,6 +23,8 @@ const SearchWeather = ({ onAddCity, city }: SearchWeatherProps) => {
   const { inputValue, onInputChange, cities, loading, handleCitySelect } =
     useSearchWeather({ onAddCity });
 
+  const backgroundColor = weather ? colors.cardBg : "bg-gray-800";
+
   return (
     <div className="relative">
       <Input
@@ -30,7 +32,7 @@ const SearchWeather = ({ onAddCity, city }: SearchWeatherProps) => {
         placeholder="Buscar ciudad"
         value={inputValue}
         onChange={onInputChange}
-        className={`w-full p-2 ${colors.cardBg } opacity-100 ${colors.title} focus:outline-none placeholder:text-slate-50 `}
+        className={`w-full p-2 ${backgroundColor} opacity-100 ${colors.title} focus:outline-none placeholder:text-slate-50 `}
       />
       {inputValue.length >= 3 && (
         <div
