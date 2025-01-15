@@ -1,14 +1,20 @@
 import { useEffect, useState, useCallback } from "react";
 import { getPronostico } from "@/helpers/getWeather";
-import { WeatherForecastItem } from "@/types";
+import { City, WeatherForecastItem } from "@/types";
 
-export const useGetPronostico = () => {
+
+interface GetPronostico {
+    city: City;
+}
+
+export const useGetPronostico = ({city}:GetPronostico) => {
   const [pronostico, setPronostico] = useState<WeatherForecastItem[]>([]);
   const [loading, setLoading] = useState(true);
 
-  const fetchPronostico = useCallback(async () => {
+
+  const fetchPronostico = useCallback(async (city: City) => {
     try {
-      const data = await getPronostico();
+      const data = await getPronostico(city);
       setPronostico(filterPronostico(data));
       setLoading(false);
     } catch (error) {
@@ -18,8 +24,8 @@ export const useGetPronostico = () => {
   }, []);
 
   useEffect(() => {
-    fetchPronostico();
-  }, [fetchPronostico]);
+    fetchPronostico(city); 
+  }, [city, fetchPronostico]);
 
   const filterPronostico = (pronostico: WeatherForecastItem[]) => {
     return pronostico.filter((item) => {

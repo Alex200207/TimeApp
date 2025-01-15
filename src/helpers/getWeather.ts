@@ -5,7 +5,8 @@ import { City } from "@/types";
 export const getWeather = async (city: City) => {
   const { name, country, state } = city;
 
-   const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
+  const delay = (ms: number) =>
+    new Promise((resolve) => setTimeout(resolve, ms));
 
   const url = `${API_URL}q=${
     name || state
@@ -13,7 +14,7 @@ export const getWeather = async (city: City) => {
 
   try {
     const response = await axios.get(url);
-    await delay(500);
+    await delay(2000);
     return response.data;
   } catch (error) {
     console.error("Error fetching weather data:", error);
@@ -21,12 +22,19 @@ export const getWeather = async (city: City) => {
   }
 };
 
-export const getPronostico = async () => {
-  const url = `${API_URL_ONECALL}q=jalapa,NI&appid=${API_KEY}&units=metric&lang=es`;
+export const getPronostico = async (city: City) => {
+  const { name, country, state } = city;
 
+  const delay = (ms: number) =>
+    new Promise((resolve) => setTimeout(resolve, ms));
+
+  const url = `${API_URL_ONECALL}q=${
+    name || state
+  }, ${country}&appid=${API_KEY}&units=metric&lang=es`;
 
   try {
     const response = await axios.get(url);
+    await delay(2000);
     return response.data.list;
   } catch (error) {
     console.error("Error fetching weather data:", error);

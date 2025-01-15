@@ -13,7 +13,7 @@ interface WeatherForecastProps {
 export default function WeatherForecast({ city }: WeatherForecastProps) {
   const { weather } = useGetWeather(city);
   const [colors, setColors] = useState(getWeatherColor(weather));
-  const { pronostico, getDate } = useGetPronostico();
+  const { pronostico, getDate } = useGetPronostico({ city });
 
   useEffect(() => {
     if (weather) {
