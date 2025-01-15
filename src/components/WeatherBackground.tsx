@@ -154,8 +154,6 @@ const WeatherBackground: FC<WeatherBackgroundProps> = ({ weather }) => {
 
       {/* Gradient overlays */}
       <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
-
-
     </div>
   );
 };

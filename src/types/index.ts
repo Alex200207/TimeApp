@@ -22,8 +22,32 @@ export interface WeatherApiResponse {
   id: number;
   name: string;
   cod: number;
-  
 }
+export type WeatherDay = {
+  icon: "rain" | "cloud" | "sun";
+};
+
+export type WeatherForecastItem = {
+  dt: number; // Timestamp (en segundos)
+  main: MainWeatherData;
+  weather: Weather[];
+  clouds: CloudsData;
+  wind: WindData;
+  snow?: SnowData;
+  sys: SysData;
+  dt_txt: string; // Fecha y hora en formato "YYYY-MM-DD HH:mm:ss"
+  icon?: "rain" | "cloud" | "sun";
+};
+
+
+
+export type WeatherForecastApiResponse = {
+  cod: string;
+  message: number;
+  cnt: number;
+  list: WeatherForecastItem[];
+};
+
 
 export interface Weather {
   id: number;
@@ -64,4 +88,9 @@ export interface City {
   name: string;
   country: string;
   state?: string;
+}
+
+export interface SnowData {
+  '1h'?: number;
+  '3h'?: number;
 }

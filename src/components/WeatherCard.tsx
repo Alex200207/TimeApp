@@ -27,11 +27,31 @@ interface WeatherCardProps {
 
 const WeatherCard = ({ city }: WeatherCardProps) => {
   const { weather } = useGetWeather(city);
-  const [colors, setColors] = useState(getWeatherColor(weather)); 
+  const [colors, setColors] = useState(getWeatherColor(weather));
+  const [currentTime, setCurrentTime] = useState("");
 
   useEffect(() => {
     if (weather) {
-      setColors(getWeatherColor(weather)); 
+      setColors(getWeatherColor(weather));
+
+      const calculateLocalTime = () => {
+        const now = new Date();
+        const utcTime = now.getTime() + now.getTimezoneOffset() * 60000;
+        const localTime = new Date(utcTime + (weather.timezone || 0) * 1000);
+        return localTime.toLocaleTimeString([], {
+          hour: "2-digit",
+          minute: "2-digit",
+          second: "2-digit",
+        });
+      };
+
+      setCurrentTime(calculateLocalTime());
+
+      const interval = setInterval(() => {
+        setCurrentTime(calculateLocalTime());
+      }, 1000);
+
+      return () => clearInterval(interval);
     }
   }, [weather]);
 
@@ -76,6 +96,7 @@ const WeatherCard = ({ city }: WeatherCardProps) => {
               className="transform -translate-y-2"
             />
           </div>
+
           <div className="flex items-end gap-4">
             <span className={`text-5xl font-bold ${colors.title}`}>
               {Math.round(weather?.main.temp || 0)}°C
@@ -162,11 +183,7 @@ const WeatherCard = ({ city }: WeatherCardProps) => {
 
         <CardFooter className={`${colors.footerBg} py-3`}>
           <p className={`text-xs ${colors.text} w-full text-center`}>
-            Última actualización:{" "}
-            {new Date((weather?.dt ?? 0) * 1000).toLocaleTimeString([], {
-              hour: "2-digit",
-              minute: "2-digit",
-            })}
+            Hora actual: {currentTime}
           </p>
         </CardFooter>
       </Card>

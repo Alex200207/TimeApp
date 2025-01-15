@@ -17,3 +17,16 @@ export const getWeather = async (city: City) => {
     throw error;
   }
 };
+
+export const getPronostico = async () => {
+  const url = `http://api.openweathermap.org/data/2.5/forecast?q=jalapa,NI&appid=${API_KEY}&units=metric&lang=es`;
+
+
+  try {
+    const response = await axios.get(url);
+    return response.data.list;
+  } catch (error) {
+    console.error("Error fetching weather data:", error);
+    throw error;
+  }
+};
