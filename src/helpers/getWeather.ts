@@ -1,4 +1,4 @@
-import { API_KEY, API_URL } from "@/constants/api";
+import { API_KEY, API_URL, API_URL_ONECALL } from "@/constants/api";
 import axios from "axios";
 import { City } from "@/types";
 
@@ -19,8 +19,7 @@ export const getWeather = async (city: City) => {
 };
 
 export const getPronostico = async () => {
-  const url = `http://api.openweathermap.org/data/2.5/forecast?q=jalapa,NI&appid=${API_KEY}&units=metric&lang=es`;
-
+  const url = `${API_URL_ONECALL}q=jalapa,NI&appid=${API_KEY}&units=metric&lang=es`;
 
   try {
     const response = await axios.get(url);
