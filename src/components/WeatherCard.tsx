@@ -6,7 +6,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Skeleton } from "./ui/skeleton";
+import { Skeleton } from "@/components/ui/skeleton";
 import {
   Cloud,
   Droplets,
@@ -68,7 +68,11 @@ const WeatherCard = ({ city }: WeatherCardProps) => {
     <div className={`flex items-center gap-2 ${colors.text}`}>
       <Icon className={`w-4 h-4 ${colors.icon}`} />
       <span className="text-sm">{label}:</span>
-      <span className="text-sm font-medium">{value}</span>
+      {weather ? (
+        <span className="text-sm font-medium">{value}</span>
+      ) : (
+        <Skeleton className="h-4 w-12" />
+      )}
     </div>
   );
 
@@ -80,46 +84,63 @@ const WeatherCard = ({ city }: WeatherCardProps) => {
         <CardHeader className="pb-2 space-y-4">
           <div className="flex justify-between items-start">
             <div>
-              <CardTitle className={`text-3xl font-bold ${colors.title}`}>
-                {weather?.name}, {weather?.sys.country}
-              </CardTitle>
-              <CardDescription
-                className={`text-lg font-medium ${colors.description} capitalize`}
-              >
-                {weather?.weather[0].description}
-              </CardDescription>
+              {weather ? (
+                <CardTitle className={`text-3xl font-bold ${colors.title}`}>
+                  {weather?.name}, {weather?.sys.country}
+                </CardTitle>
+              ) : (
+                <Skeleton className="h-8 w-48 mb-2" />
+              )}
+
+              {weather ? (
+                <CardDescription
+                  className={`text-lg font-medium ${colors.description} capitalize`}
+                >
+                  {weather?.weather[0].description}
+                </CardDescription>
+              ) : (
+                <Skeleton className="h-6 w-32" />
+              )}
             </div>
-            <img
-              src={`https://openweathermap.org/img/wn/${weather?.weather[0].icon}@2x.png`}
-              alt={weather?.weather[0].description}
-              width={80}
-              height={80}
-              className="transform -translate-y-2"
-            />
+            {weather ? (
+              <img
+                src={`https://openweathermap.org/img/wn/${weather?.weather[0].icon}@2x.png`}
+                alt={weather?.weather[0].description}
+                width={80}
+                height={80}
+                className="transform -translate-y-2"
+              />
+            ) : (
+              <Skeleton className="h-20 w-20 rounded-full" />
+            )}
           </div>
 
           <div className="flex items-end gap-4">
-            <span className={`text-5xl font-bold ${colors.title}`}>
-              {Math.round(weather?.main.temp || 0)}°C
-            </span>
-            <span className={`text-lg ${colors.description} pb-1`}>
-              Sensación {Math.round(weather?.main.feels_like || 0)}°C
-            </span>
+            {weather ? (
+              <>
+                <span className={`text-5xl font-bold ${colors.title}`}>
+                  {Math.round(weather?.main.temp || 0)}°C
+                </span>
+                <span className={`text-lg ${colors.description} pb-1`}>
+                  Sensación {Math.round(weather?.main.feels_like || 0)}°C
+                </span>
+              </>
+            ) : (
+              <div className="flex gap-4">
+                <Skeleton className="h-12 w-24" />
+                <Skeleton className="h-6 w-32 self-end mb-1" />
+              </div>
+            )}
           </div>
         </CardHeader>
 
         <CardContent className="space-y-4">
           <div className="grid grid-cols-2 gap-3 py-4">
-            {weather ? (
-              <WeatherInfo
-                icon={Droplets}
-                label="Humedad"
-                value={`${weather?.main.humidity}%`}
-              />
-            ) : (
-              <Skeleton className="h-6 w-16" />
-            )}
-
+            <WeatherInfo
+              icon={Droplets}
+              label="Humedad"
+              value={`${weather?.main.humidity}%`}
+            />
             <WeatherInfo
               icon={Wind}
               label="Viento"
@@ -144,15 +165,11 @@ const WeatherCard = ({ city }: WeatherCardProps) => {
               label="Presión"
               value={`${weather?.main.pressure} hPa`}
             />
-            {weather ? (
-              <WeatherInfo
-                icon={Cloud}
-                label="Nubes"
-                value={`${weather.clouds.all}%`}
-              />
-            ) : (
-              <Skeleton className="h-6 w-16" />
-            )}
+            <WeatherInfo
+              icon={Cloud}
+              label="Nubes"
+              value={`${weather?.clouds.all}%`}
+            />
           </div>
 
           <div className={`border-t ${colors.border} pt-4`}>
@@ -160,41 +177,53 @@ const WeatherCard = ({ city }: WeatherCardProps) => {
               <div className="flex flex-col items-center">
                 <Sunrise className={`w-6 h-6 text-orange-400 mb-1`} />
                 <span className={colors.text}>Amanecer</span>
-                <span className={`text-sm font-medium ${colors.title}`}>
-                  {weather?.sys.sunrise
-                    ? new Date(weather.sys.sunrise * 1000).toLocaleTimeString(
-                        [],
-                        {
-                          hour: "2-digit",
-                          minute: "2-digit",
-                        }
-                      )
-                    : "N/A"}
-                </span>
+                {weather ? (
+                  <span className={`text-sm font-medium ${colors.title}`}>
+                    {weather?.sys.sunrise
+                      ? new Date(weather.sys.sunrise * 1000).toLocaleTimeString(
+                          [],
+                          {
+                            hour: "2-digit",
+                            minute: "2-digit",
+                          }
+                        )
+                      : "N/A"}
+                  </span>
+                ) : (
+                  <Skeleton className="h-4 w-16 mt-1" />
+                )}
               </div>
               <div className="flex flex-col items-center">
                 <Sunset className={`w-6 h-6 text-orange-400 mb-1`} />
                 <span className={colors.text}>Atardecer</span>
-                <span className={`text-sm font-medium ${colors.title}`}>
-                  {weather?.sys.sunset
-                    ? new Date(weather.sys.sunset * 1000).toLocaleTimeString(
-                        [],
-                        {
-                          hour: "2-digit",
-                          minute: "2-digit",
-                        }
-                      )
-                    : "N/A"}
-                </span>
+                {weather ? (
+                  <span className={`text-sm font-medium ${colors.title}`}>
+                    {weather?.sys.sunset
+                      ? new Date(weather.sys.sunset * 1000).toLocaleTimeString(
+                          [],
+                          {
+                            hour: "2-digit",
+                            minute: "2-digit",
+                          }
+                        )
+                      : "N/A"}
+                  </span>
+                ) : (
+                  <Skeleton className="h-4 w-16 mt-1" />
+                )}
               </div>
             </div>
           </div>
         </CardContent>
 
         <CardFooter className={`${colors.footerBg} py-3`}>
-          <p className={`text-xs ${colors.text} w-full text-center`}>
-            Hora actual: {currentTime}
-          </p>
+          {weather ? (
+            <p className={`text-xs ${colors.text} w-full text-center`}>
+              Hora actual: {currentTime}
+            </p>
+          ) : (
+            <Skeleton className="h-4 w-32 mx-auto" />
+          )}
         </CardFooter>
       </Card>
     </div>

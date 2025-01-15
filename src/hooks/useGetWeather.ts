@@ -24,10 +24,13 @@ const useGetWeather = (city: City) => {
     fetchWeather(city);
   }, [city]);
 
+
+
   return {
     weather,
     loading,
     setLoadingFalse,
+  
   };
 };
 

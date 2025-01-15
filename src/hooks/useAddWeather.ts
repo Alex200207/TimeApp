@@ -8,6 +8,7 @@ export const useAddWeather = () => {
   const { weather } = useGetWeather(city);
 
   useEffect(() => {
+    
     getCityFromGeolocation();
   }, []);
 
@@ -34,9 +35,12 @@ export const useAddWeather = () => {
     setCity(newCity);
   };
 
+  const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
+
   return {
     city,
     weather,
     onAddCity,
+    delay,
   };
 };
