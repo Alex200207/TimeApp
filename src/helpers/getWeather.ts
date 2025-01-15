@@ -14,7 +14,7 @@ export const getWeather = async (city: City) => {
 
   try {
     const response = await axios.get(url);
-    await delay(2000);
+    await delay(800);
     return response.data;
   } catch (error) {
     console.error("Error fetching weather data:", error);
@@ -34,7 +34,7 @@ export const getPronostico = async (city: City) => {
 
   try {
     const response = await axios.get(url);
-    await delay(2000);
+    await delay(800);
     return response.data.list;
   } catch (error) {
     console.error("Error fetching weather data:", error);
