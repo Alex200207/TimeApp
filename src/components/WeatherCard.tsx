@@ -11,6 +11,7 @@ import {
   Cloud,
   Droplets,
   Eye,
+  Heart,
   Sunrise,
   Sunset,
   Thermometer,
@@ -24,9 +25,11 @@ import { useEffect, useState } from "react";
 interface WeatherCardProps {
   city: City;
   weather: WeatherApiResponse | null;
+  onToggleFavorite?: (city: City) => void;// por ahora como me falta un poco es opcional
+  isFavorite?: boolean;
 }
 
-const WeatherCard = ({ city }: WeatherCardProps) => {
+const WeatherCard = ({ city, onToggleFavorite, isFavorite = false }: WeatherCardProps) => {
   const { weather } = useGetWeather(city);
   const [colors, setColors] = useState(getWeatherColor(weather));
   const [currentTime, setCurrentTime] = useState("");
@@ -83,36 +86,53 @@ const WeatherCard = ({ city }: WeatherCardProps) => {
       >
         <CardHeader className="pb-2 space-y-4">
           <div className="flex justify-between items-start">
-            <div>
-              {weather ? (
-                <CardTitle className={`text-3xl font-bold ${colors.title}`}>
-                  {weather?.name}, {weather?.sys.country}
-                </CardTitle>
-              ) : (
-                <Skeleton className="h-8 w-48 mb-2" />
-              )}
+            <div className="flex-1">
+              <div className="flex items-start justify-between">
+                <div className="flex-1">
+                  {weather ? (
+                    <div className="flex items-center gap-2">
+                      <CardTitle className={`text-3xl font-bold ${colors.title}`}>
+                        {weather?.name}, {weather?.sys.country}
+                      </CardTitle>
+                      <button
+                        onClick={() => onToggleFavorite?.(city)}
+                        className="mt-2 focus:outline-none"
+                        aria-label={isFavorite ? "remover" : "agregar"}
+                      >
+                        <Heart
+                          className={`w-5 h-5 transition-colors ${
+                            isFavorite ? 'text-red-500 fill-red-500' : `${colors.text} hover:text-red-500`
+                          }`}
+                        />
+                      </button>
+                    </div>
+                  ) : (
+                    <Skeleton className="h-8 w-48 mb-2" />
+                  )}
 
-              {weather ? (
-                <CardDescription
-                  className={`text-lg font-medium ${colors.description} capitalize`}
-                >
-                  {weather?.weather[0].description}
-                </CardDescription>
-              ) : (
-                <Skeleton className="h-6 w-32" />
-              )}
+                  {weather ? (
+                    <CardDescription
+                      className={`text-lg font-medium ${colors.description} capitalize`}
+                    >
+                      {weather?.weather[0].description}
+                    </CardDescription>
+                  ) : (
+                    <Skeleton className="h-6 w-32" />
+                  )}
+                </div>
+                {weather ? (
+                  <img
+                    src={`https://openweathermap.org/img/wn/${weather?.weather[0].icon}@2x.png`}
+                    alt={weather?.weather[0].description}
+                    width={80}
+                    height={80}
+                    className="transform -translate-y-2"
+                  />
+                ) : (
+                  <Skeleton className="h-20 w-20 rounded-full" />
+                )}
+              </div>
             </div>
-            {weather ? (
-              <img
-                src={`https://openweathermap.org/img/wn/${weather?.weather[0].icon}@2x.png`}
-                alt={weather?.weather[0].description}
-                width={80}
-                height={80}
-                className="transform -translate-y-2"
-              />
-            ) : (
-              <Skeleton className="h-20 w-20 rounded-full" />
-            )}
           </div>
 
           <div className="flex items-end gap-4">
