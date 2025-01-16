@@ -6,7 +6,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Menu } from "lucide-react";
+import { Heart, Menu } from "lucide-react";
 
 const DropDown = () => {
   return (
@@ -14,13 +14,12 @@ const DropDown = () => {
       <DropdownMenuTrigger>
         <Menu />
       </DropdownMenuTrigger>
-      <DropdownMenuContent>
-        <DropdownMenuLabel>My Account</DropdownMenuLabel>
+      <DropdownMenuContent className="p-2 mr-1">
+        <DropdownMenuLabel>Menu</DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>Profile</DropdownMenuItem>
-        <DropdownMenuItem>Billing</DropdownMenuItem>
-        <DropdownMenuItem>Team</DropdownMenuItem>
-        <DropdownMenuItem>Subscription</DropdownMenuItem>
+        <DropdownMenuItem>Home</DropdownMenuItem>
+        <DropdownMenuItem className="text-sm">Favoritos <Heart className="w-4 h-4"/></DropdownMenuItem>
+        <DropdownMenuItem>Acerca</DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );
