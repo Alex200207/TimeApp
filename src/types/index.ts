@@ -28,14 +28,14 @@ export type WeatherDay = {
 };
 
 export type WeatherForecastItem = {
-  dt: number; // Timestamp (en segundos)
+  dt: number;
   main: MainWeatherData;
   weather: Weather[];
   clouds: CloudsData;
   wind: WindData;
   snow?: SnowData;
   sys: SysData;
-  dt_txt: string; // Fecha y hora en formato "YYYY-MM-DD HH:mm:ss"
+  dt_txt: string; 
   icon?: "rain" | "cloud" | "sun";
 };
 

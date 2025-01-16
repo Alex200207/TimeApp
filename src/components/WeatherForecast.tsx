@@ -77,8 +77,8 @@ export default function WeatherForecast({ city }: WeatherForecastProps) {
                     description={day.weather[0].description}
                     size="small"
                   />
-                  <span className={`${colors.text} text-sm font-semibold`}>
-                    {Math.round(day.main.temp_max)}°C /{" "}
+                  <span className={`${colors.text} text-sm font-semibold mr-2`}>
+                    {Math.round(day.main.temp_max)}°C / 
                     {Math.round(day.main.temp_min)}°C
                   </span>
                 </div>

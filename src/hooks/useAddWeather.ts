@@ -4,7 +4,7 @@ import { City } from "@/types";
 import { API_KEY, API_URL } from "@/constants/api";
 
 export const useAddWeather = () => {
-  const [city, setCity] = useState<City>({ name: "jalapa", country: "NI" });
+  const [city, setCity] = useState<City>({ name: "ocotal", country: "NI" });
   const { weather } = useGetWeather(city);
 
   useEffect(() => {
@@ -25,7 +25,7 @@ export const useAddWeather = () => {
           setCity({ name: data.name, country: data.sys.country });
         } catch (error) {
           console.error("Error fetching city:", error);
-          setCity({ name: "Jalapa", country: "NI" });
+          setCity(city);
         }
       });
     }

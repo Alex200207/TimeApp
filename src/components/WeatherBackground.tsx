@@ -111,7 +111,7 @@ const WeatherBackground: FC<WeatherBackgroundProps> = ({ weather }) => {
 
       <div className="absolute inset-0 grid grid-cols-8 md:grid-cols-12 gap-8 p-8">
         {Array(24)
-          .fill(0)
+          .fill(0)//fill() método llena los elementos de una matriz con el valor estático
           .map((_, i) => {
             const WeatherIcon = (() => {
               switch (condition) {
