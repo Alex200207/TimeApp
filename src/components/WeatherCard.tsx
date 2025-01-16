@@ -218,7 +218,7 @@ const WeatherCard = ({ city }: WeatherCardProps) => {
 
         <CardFooter className={`${colors.footerBg} py-3`}>
           {weather ? (
-            <p className={`text-xs ${colors.text} w-full text-center`}>
+            <p className={`text-xl ${colors.text} w-full text-center`}>
               Hora actual: {currentTime}
             </p>
           ) : (
