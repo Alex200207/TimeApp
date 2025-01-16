@@ -1,13 +1,29 @@
-import { WeatherDay } from "@/types";
-import { Cloud, CloudRain, Sun } from "lucide-react";
 
-export const WeatherIcon = ({ icon }: { icon: WeatherDay["icon"] }) => {
-  switch (icon) {
-    case "rain":
-      return <CloudRain className="w-5 h-5 text-orange-500" />;
-    case "cloud":
-      return <Cloud className="w-5 h-5 text-gray-600" />;
-    case "sun":
-      return <Sun className="w-5 h-5 text-orange-500" />;
-  }
+interface WeatherIconProps {
+  icon: string;
+  size?: 'small' | 'medium' | 'large';
+  description?: string;
+}
+
+const sizeMap = {
+  small: '@2x',
+  medium: '@2x',
+  large: '@4x'
 };
+
+export function WeatherIcon({ icon, size = 'medium', description }: WeatherIconProps) {
+  const iconSize = sizeMap[size];
+  const iconUrl = `http://openweathermap.org/img/wn/${icon}${iconSize}.png`;
+  
+  return (
+    <img 
+      src={iconUrl} 
+      alt={description || 'Weather icon'} 
+      className={`
+        ${size === 'small' ? 'w-8 h-8' : ''}
+        ${size === 'medium' ? 'w-12 h-12' : ''}
+        ${size === 'large' ? 'w-16 h-16' : ''}
+      `}
+    />
+  );
+}
