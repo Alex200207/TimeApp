@@ -4,6 +4,8 @@ import DropDown from "./DropDown";
 import MenuNavigator from "./MenuNavigator";
 import { City } from "../types";
 import useGetWeather from "@/hooks/useGetWeather";
+import { Button } from "./ui/button";
+import { Heart } from "lucide-react";
 
 interface HeaderProps {
   onAddCity: (newCity: City) => void;
@@ -72,14 +74,13 @@ const Header: React.FC<HeaderProps> = ({ onAddCity, city }) => {
 
             />
             <MenuNavigator
-              name= "Acerca de"
+              name= "About"
               content='Algo'
             
             />
-            <MenuNavigator 
-              name= "Contactame"
-              content='Algo'
-            />
+            <Button className={`bg-transparent ${colors.text} border-none hover:bg-white hover:text-black`}>
+              Favoritos <Heart className="w-5 h-5" />
+            </Button>
           </div>
         </div>
       </nav>
