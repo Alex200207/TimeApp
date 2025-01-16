@@ -11,7 +11,6 @@ import {
   Cloud,
   Droplets,
   Eye,
-  Heart,
   Sunrise,
   Sunset,
   Thermometer,
@@ -21,6 +20,7 @@ import useGetWeather from "@/hooks/useGetWeather";
 import { City, WeatherApiResponse } from "@/types";
 import { getWeatherColor } from "../utils/getWeatherColor";
 import { useEffect, useState } from "react";
+import { FaHeart } from "react-icons/fa";
 
 interface WeatherCardProps {
   city: City;
@@ -99,7 +99,7 @@ const WeatherCard = ({ city, onToggleFavorite, isFavorite = false }: WeatherCard
                         className="mt-2 focus:outline-none"
                         aria-label={isFavorite ? "remover" : "agregar"}
                       >
-                        <Heart
+                        <FaHeart 
                           className={`w-5 h-5 transition-colors ${
                             isFavorite ? 'text-red-500 fill-red-500' : `${colors.text} hover:text-red-500`
                           }`}
