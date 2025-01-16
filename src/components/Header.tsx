@@ -40,7 +40,7 @@ const Header: React.FC<HeaderProps> = ({ onAddCity, city }) => {
   };
 
   const colors = getColorClasses();
-  const backgroundColor = weather ? colors.background : "bg-gray-800"; 
+  const backgroundColor = weather ? colors.background : "bg-gray-800";
 
   return (
     <header
@@ -55,7 +55,7 @@ const Header: React.FC<HeaderProps> = ({ onAddCity, city }) => {
           </div>
 
           <div className="flex-1">
-            <SearchWeather onAddCity={onAddCity}  city={city}/>
+            <SearchWeather onAddCity={onAddCity} city={city} />
           </div>
 
           <div
@@ -68,17 +68,14 @@ const Header: React.FC<HeaderProps> = ({ onAddCity, city }) => {
           <div
             className={`hidden lg:flex items-center space-x-6 ${colors.text}`}
           >
-            <MenuNavigator 
-              name= "Home"
-              content='Algo'
-
-            />
+            <MenuNavigator name="Home" content="Algo" />
             <MenuNavigator
-              name= "About"
-              content='Algo'
-            
+              name="About"
+              content="Otra cosa"
             />
-            <Button className={`bg-transparent ${colors.text} border-none hover:bg-white hover:text-black`}>
+            <Button
+              className={`bg-transparent ${colors.text} border-none hover:bg-white hover:text-black`}
+            >
               Favoritos <Heart className="w-5 h-5" />
             </Button>
           </div>
