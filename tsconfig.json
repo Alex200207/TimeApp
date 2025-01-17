@@ -13,6 +13,12 @@
     "paths": {
       "@/*": ["./src/*"]
     },
-    "types": ["jest", "@testing-library/jest-dom"]
+    "types": ["jest", "@testing-library/jest-dom"],
+    "module": "ESNext",  // O "ES2020", "ES2022"
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "target": "ESNext",  // O "ES2020"
+    "lib": ["ESNext", "dom"],   // Asegura que 'dom' esté incluido
+    "strict": true
   }
 }
