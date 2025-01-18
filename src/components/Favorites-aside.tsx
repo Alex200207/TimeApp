@@ -8,18 +8,14 @@ import { PanelRightClose, X } from "lucide-react";
 import { useEffect, useState } from "react";
 
 interface FavoritesAsideProps {
-  favorites: Array<{
-    city: string;
-    temperature: number;
-    condition: string;
-  }>;
+
   show: boolean;
   onClose: () => void;
   city: City;
 }
 
 export function FavoritesAside({
-  favorites,
+ 
   show,
   onClose,
   city,
@@ -27,6 +23,23 @@ export function FavoritesAside({
   const { weather } = useGetWeather(city);
   const [colors, setColors] = useState(getWeatherColor(weather));
   const [isMobile, setIsMobile] = useState(false);
+  const [favorites] = useState([
+    {
+      city: "Buenos Aires",
+      temperature: 20,
+      condition: "Soleado",
+    },
+    {
+      city: "Córdoba",
+      temperature: 25,
+      condition: "Nublado",
+    },
+    {
+      city: "Rosario",
+      temperature: 18,
+      condition: "Lluvia",
+    },
+  ]);
 
   useEffect(() => {
     const handleResize = () => {

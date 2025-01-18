@@ -15,13 +15,12 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ onAddCity, city }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [favorites, setFavorites] = useState([]);
   const [showFavorites, setShowFavorites] = useState(false);
   const { weather } = useGetWeather(city);
   const hour = new Date().getHours();
   const isDaytime = hour >= 6 && hour < 18;
 
-  console.log(setFavorites);
+
 
   // Obtener las clases de color basadas en el momento del día
   const getColorClasses = () => {
@@ -68,7 +67,7 @@ const Header: React.FC<HeaderProps> = ({ onAddCity, city }) => {
               className={`lg:hidden p-2 flex-0 ${colors.text}`}
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             >
-              <DropDown showAside={setShowFavorites}  />
+              <DropDown showAside={setShowFavorites} />
             </div>
 
             <div
@@ -79,10 +78,12 @@ const Header: React.FC<HeaderProps> = ({ onAddCity, city }) => {
               <Button
                 onClick={() => setShowFavorites(!showFavorites)}
                 variant="outline"
-                className="w-full bg-transparent border-none"
+                className="w-full bg-transparent text-white border-none hover:bg-white hover:text-slate-900"
               >
                 <Heart className="mr-2 h-4 w-4" />
-                {showFavorites ? "Ocultar Favoritos" : "Mostrar Favoritos"}
+                <span className={` text-sm`}>
+                  {showFavorites ? "Ocultar Favoritos" : "Mostrar Favoritos"}
+                </span>
               </Button>
             </div>
           </div>
@@ -99,11 +100,9 @@ const Header: React.FC<HeaderProps> = ({ onAddCity, city }) => {
       </header>
 
       <FavoritesAside
-        favorites={favorites}
         show={showFavorites}
         onClose={() => setShowFavorites(!showFavorites)}
         city={city}
-
       />
     </>
   );
