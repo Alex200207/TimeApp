@@ -70,11 +70,7 @@ export const FavoritesAside = ({
     `}
     >
       <div className="p-4 bg-slate-900 border-b flex justify-between items-center">
-        <h2
-          className={`text-xl font-semibold text-slate-50 `}
-        >
-          Favoritos
-        </h2>
+        <h2 className={`text-xl font-semibold text-slate-50 `}>Favoritos</h2>
         <Button onClick={onClose} className="bg-transparent">
           <PanelRightClose className={`h-10 w-10 ${colors.text}`} />
         </Button>
@@ -95,6 +91,21 @@ export const FavoritesAside = ({
                 <p>
                   {fav.temperature}°C - {fav.condition}
                 </p>
+
+                <div className="flex items-center gap-2 mt-4">
+                  <Button
+                    variant="outline"
+                    className={`w-full ${colors.border} ${colors.text}`}
+                  >
+                    Ver más
+                  </Button>
+                  <Button
+                    variant="outline"
+                    className={`w-full ${colors.border} ${colors.text}`}
+                  >
+                    Borrar
+                  </Button>
+                </div>
               </CardContent>
             </Card>
           ))}
