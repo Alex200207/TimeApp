@@ -8,18 +8,16 @@ import { PanelRightClose, X } from "lucide-react";
 import { useEffect, useState } from "react";
 
 interface FavoritesAsideProps {
-
   show: boolean;
   onClose: () => void;
   city: City;
 }
 
-export function FavoritesAside({
- 
+export const FavoritesAside = ({
   show,
   onClose,
   city,
-}: FavoritesAsideProps) {
+}: FavoritesAsideProps) => {
   const { weather } = useGetWeather(city);
   const [colors, setColors] = useState(getWeatherColor(weather));
   const [isMobile, setIsMobile] = useState(false);
@@ -65,7 +63,9 @@ export function FavoritesAside({
       className={`
       fixed top-0 right-0 h-full ${isMobile ? "w-full" : "w-80"} ${
         isMobile ? "z-50" : "z-40"
-      } backdrop-blur-sm ${colors.cardBg} shadow-lg transform transition-transform duration-300 ease-in-out
+      } backdrop-blur-sm ${
+        colors.cardBg
+      } shadow-lg transform transition-transform duration-300 ease-in-out
       ${show ? "translate-x-0" : "translate-x-full"}
     `}
     >
@@ -77,7 +77,7 @@ export function FavoritesAside({
         >
           Favoritos
         </h2>
-        <Button  onClick={onClose} className="bg-transparent" >
+        <Button onClick={onClose} className="bg-transparent">
           <PanelRightClose className={`h-10 w-10 ${colors.text}`} />
         </Button>
       </div>
@@ -104,4 +104,4 @@ export function FavoritesAside({
       </ScrollArea>
     </aside>
   );
-}
+};

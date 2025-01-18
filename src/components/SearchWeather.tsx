@@ -4,7 +4,7 @@ import { City } from "@/types";
 import { useEffect, useState } from "react";
 import { getWeatherColor } from "@/utils/getWeatherColor";
 import useGetWeather from "@/hooks/useGetWeather";
-import { Loader2, MapPin } from 'lucide-react';
+import { Loader2, MapPin } from "lucide-react";
 
 interface SearchWeatherProps {
   onAddCity: (newCity: City) => void;
@@ -14,8 +14,7 @@ interface SearchWeatherProps {
 const SearchWeather = ({ onAddCity, city }: SearchWeatherProps) => {
   const { weather } = useGetWeather(city);
   const [colors, setColors] = useState(getWeatherColor(weather));
-  
-  
+
   useEffect(() => {
     if (weather) {
       setColors(getWeatherColor(weather));
@@ -35,7 +34,7 @@ const SearchWeather = ({ onAddCity, city }: SearchWeatherProps) => {
           placeholder="Buscar ciudad"
           value={inputValue}
           onChange={onInputChange}
-          className={`w-full p-2 pr-10 ${backgroundColor} opacity-100 ${colors.title} focus:outline-none placeholder:text-slate-50`}
+          className={`w-full p-2 pr-10 ${backgroundColor} opacity-100 ${colors.title} focus:outline-none focus:border-none placeholder:text-slate-50`}
         />
         {loading && (
           <div className="absolute right-3 top-1/2 -translate-y-1/2">
@@ -44,7 +43,9 @@ const SearchWeather = ({ onAddCity, city }: SearchWeatherProps) => {
         )}
       </div>
       {inputValue.length >= 3 && (
-        <div className={`absolute w-full mt-1 bg-slate-50 border rounded-md shadow-lg z-10 max-h-[300px] overflow-y-auto`}>
+        <div
+          className={`absolute w-full mt-1 bg-slate-50 border rounded-md shadow-lg z-10 max-h-[300px] overflow-y-auto`}
+        >
           {loading ? (
             <div className="p-4 flex items-center justify-center space-x-2">
               <Loader2 className="w-5 h-5 animate-spin text-gray-500" />
@@ -61,7 +62,8 @@ const SearchWeather = ({ onAddCity, city }: SearchWeatherProps) => {
                 <div>
                   <div className="font-medium">{city.name}</div>
                   <div className="text-sm text-gray-500">
-                    {city.state && `${city.state}, `}{city.country}
+                    {city.state && `${city.state}, `}
+                    {city.country}
                   </div>
                 </div>
               </div>
