@@ -71,9 +71,7 @@ export const FavoritesAside = ({
     >
       <div className="p-4 bg-slate-900 border-b flex justify-between items-center">
         <h2
-          className={`text-xl font-semibold ${
-            isMobile ? "text-white" : colors.text
-          }`}
+          className={`text-xl font-semibold text-slate-50 `}
         >
           Favoritos
         </h2>
