@@ -7,6 +7,7 @@ import useGetWeather from "@/hooks/useGetWeather";
 import { Button } from "./ui/button";
 import { Heart } from "lucide-react";
 import { FavoritesAside } from "./Favorites-aside";
+import { AboutModal } from "./Modals/AboutModal";
 
 interface HeaderProps {
   onAddCity: (newCity: City) => void;
@@ -19,8 +20,6 @@ const Header: React.FC<HeaderProps> = ({ onAddCity, city }) => {
   const { weather } = useGetWeather(city);
   const hour = new Date().getHours();
   const isDaytime = hour >= 6 && hour < 18;
-
-
 
   // Obtener las clases de color basadas en el momento del día
   const getColorClasses = () => {
@@ -74,7 +73,7 @@ const Header: React.FC<HeaderProps> = ({ onAddCity, city }) => {
               className={`hidden lg:flex items-center space-x-6 ${colors.text}`}
             >
               <MenuNavigator name="Home" content="Algo" />
-              <MenuNavigator name="About" content="Otra cosa" />
+              <AboutModal />
               <Button
                 onClick={() => setShowFavorites(!showFavorites)}
                 variant="outline"

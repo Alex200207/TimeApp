@@ -61,7 +61,7 @@ export const FavoritesAside = ({
   return (
     <aside
       className={`
-      fixed top-0 right-0 h-full ${isMobile ? "w-full" : "w-80"} ${
+      fixed top-0 right-0 h-full z-50 ${isMobile ? "w-full" : "w-80"} ${
         isMobile ? "z-50" : "z-40"
       } backdrop-blur-sm ${
         colors.cardBg
