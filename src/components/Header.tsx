@@ -6,6 +6,7 @@ import { City } from "../types";
 import useGetWeather from "@/hooks/useGetWeather";
 import { Button } from "./ui/button";
 import { Heart } from "lucide-react";
+import { FavoritesAside } from "./Favorites-aside";
 
 interface HeaderProps {
   onAddCity: (newCity: City) => void;
@@ -14,9 +15,13 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ onAddCity, city }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [favorites, setFavorites] = useState([]);
+  const [showFavorites, setShowFavorites] = useState(false);
   const { weather } = useGetWeather(city);
   const hour = new Date().getHours();
   const isDaytime = hour >= 6 && hour < 18;
+
+  console.log(setFavorites);
 
   // Obtener las clases de color basadas en el momento del día
   const getColorClasses = () => {
@@ -43,46 +48,47 @@ const Header: React.FC<HeaderProps> = ({ onAddCity, city }) => {
   const backgroundColor = weather ? colors.background : "bg-gray-800";
 
   return (
-    <header
-      className={`p-4 ${colors.shadow} z-50 ${backgroundColor} backdrop-blur- border-b ${colors.border} flex space-x-4 items-center`}
-    >
-      <nav className="max-w-7xl mx-auto">
-        <div className="flex justify-between items-center space-x-4">
-          <div
-            className={`text-2xl font-semibold flex-1 text-center lg:text-left ${colors.text}`}
-          >
-            <span className={colors.accent}>Time</span>App
-          </div>
-
-          <div className="flex-1">
-            <SearchWeather onAddCity={onAddCity} city={city} />
-          </div>
-
-          <div
-            className={`lg:hidden p-2 flex-0 ${colors.text}`}
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          >
-            <DropDown />
-          </div>
-
-          <div
-            className={`hidden lg:flex items-center space-x-6 ${colors.text}`}
-          >
-            <MenuNavigator name="Home" content="Algo" />
-            <MenuNavigator
-              name="About"
-              content="Otra cosa"
-            />
-            <Button
-              className={`bg-transparent ${colors.text} border-none hover:bg-white hover:text-black`}
+    <>
+      <header
+        className={`p-4 ${colors.shadow} z-50 ${backgroundColor} backdrop-blur- border-b ${colors.border} flex space-x-4 items-center`}
+      >
+        <nav className="max-w-7xl mx-auto">
+          <div className="flex justify-between items-center space-x-4">
+            <div
+              className={`text-2xl font-semibold flex-1 text-center lg:text-left ${colors.text}`}
             >
-              Favoritos <Heart className="w-5 h-5" />
-            </Button>
-          </div>
-        </div>
-      </nav>
+              <span className={colors.accent}>Time</span>App
+            </div>
 
-      <style>{`
+            <div className="flex-1">
+              <SearchWeather onAddCity={onAddCity} city={city} />
+            </div>
+
+            <div
+              className={`lg:hidden p-2 flex-0 ${colors.text}`}
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            >
+              <DropDown showAside={setShowFavorites}  />
+            </div>
+
+            <div
+              className={`hidden lg:flex items-center space-x-6 ${colors.text}`}
+            >
+              <MenuNavigator name="Home" content="Algo" />
+              <MenuNavigator name="About" content="Otra cosa" />
+              <Button
+                onClick={() => setShowFavorites(!showFavorites)}
+                variant="outline"
+                className="w-full bg-transparent border-none"
+              >
+                <Heart className="mr-2 h-4 w-4" />
+                {showFavorites ? "Ocultar Favoritos" : "Mostrar Favoritos"}
+              </Button>
+            </div>
+          </div>
+        </nav>
+
+        <style>{`
         .shadow-light {
           box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
         }
@@ -90,7 +96,16 @@ const Header: React.FC<HeaderProps> = ({ onAddCity, city }) => {
           box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
         }
       `}</style>
-    </header>
+      </header>
+
+      <FavoritesAside
+        favorites={favorites}
+        show={showFavorites}
+        onClose={() => setShowFavorites(!showFavorites)}
+        city={city}
+
+      />
+    </>
   );
 };
 

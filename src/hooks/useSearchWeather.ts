@@ -82,5 +82,6 @@ export const useSearchWeather = ({ onAddCity }: SearchWeatherProps) => {
     colors,
     onInputChange,
     handleCitySelect,
+    
   };
 };

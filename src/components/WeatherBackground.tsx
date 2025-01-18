@@ -70,7 +70,7 @@ const WeatherBackground: FC<WeatherBackgroundProps> = ({ weather }) => {
       {/* Main celestial body (sun/moon) */}
       <div
         className={`absolute ${
-          isDaytime ? "top-10 right-20" : "top-20 right-20"
+          isDaytime ? "top-10 right-20" : "top-20 right-20 "
         } transition-all duration-1000`}
       >
         <TimeIcon

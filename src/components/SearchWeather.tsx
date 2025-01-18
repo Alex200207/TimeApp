@@ -15,6 +15,7 @@ const SearchWeather = ({ onAddCity, city }: SearchWeatherProps) => {
   const { weather } = useGetWeather(city);
   const [colors, setColors] = useState(getWeatherColor(weather));
   
+  
   useEffect(() => {
     if (weather) {
       setColors(getWeatherColor(weather));

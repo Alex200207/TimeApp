@@ -101,7 +101,7 @@ const WeatherCard = ({ city, onToggleFavorite, isFavorite = false }: WeatherCard
                       >
                         <FaHeart 
                           className={`w-5 h-5 transition-colors ${
-                            isFavorite ? 'text-red-500 fill-red-500' : `${colors.text} hover:text-red-500`
+                            isFavorite ? 'text-red-500 fill-red-500' : `text-slate-900 hover:text-red-500`
                           }`}
                         />
                       </button>

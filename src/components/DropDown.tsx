@@ -8,7 +8,12 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Heart, Menu } from "lucide-react";
 
-const DropDown = () => {
+interface DropDownProps {
+  showAside: React.Dispatch<React.SetStateAction<boolean>>;
+  
+}
+
+const DropDown = ({ showAside}: DropDownProps) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
@@ -18,7 +23,9 @@ const DropDown = () => {
         <DropdownMenuLabel>Menu</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuItem>Home</DropdownMenuItem>
-        <DropdownMenuItem className="text-sm">Favoritos <Heart className="w-4 h-4"/></DropdownMenuItem>
+        <DropdownMenuItem className="text-sm" onClick={() => showAside(true)}>
+          Favoritos <Heart className="w-4 h-4" />
+        </DropdownMenuItem>
         <DropdownMenuItem>Acerca</DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
