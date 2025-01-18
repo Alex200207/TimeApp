@@ -56,7 +56,7 @@ export function FavoritesAside({
       ${show ? "translate-x-0" : "translate-x-full"}
     `}
     >
-      <div className="p-4 border-b flex justify-between items-center">
+      <div className="p-4 bg-slate-900 border-b flex justify-between items-center">
         <h2
           className={`text-xl font-semibold ${
             isMobile ? "text-white" : colors.text
