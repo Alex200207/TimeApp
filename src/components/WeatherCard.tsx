@@ -17,6 +17,7 @@ import {
   Wind,
 } from "lucide-react";
 import useGetWeather from "@/hooks/useGetWeather";
+import { useFavorites } from "@/contexts/FavoritesContext";
 import { City, WeatherApiResponse } from "@/types";
 import { getWeatherColor } from "../utils/getWeatherColor";
 import { useEffect, useState } from "react";
@@ -25,14 +26,13 @@ import { FaHeart } from "react-icons/fa";
 interface WeatherCardProps {
   city: City;
   weather: WeatherApiResponse | null;
-  onToggleFavorite?: (city: City) => void;// por ahora como me falta un poco es opcional
-  isFavorite?: boolean;
 }
 
-const WeatherCard = ({ city, onToggleFavorite, isFavorite = false }: WeatherCardProps) => {
+const WeatherCard = ({ city }: WeatherCardProps) => {
   const { weather } = useGetWeather(city);
   const [colors, setColors] = useState(getWeatherColor(weather));
   const [currentTime, setCurrentTime] = useState("");
+  const { toggleFavorite, favorites } = useFavorites();
 
   useEffect(() => {
     if (weather) {
@@ -91,17 +91,21 @@ const WeatherCard = ({ city, onToggleFavorite, isFavorite = false }: WeatherCard
                 <div className="flex-1">
                   {weather ? (
                     <div className="flex items-center gap-2">
-                      <CardTitle className={`text-3xl font-bold ${colors.title}`}>
+                      <CardTitle
+                        className={`text-3xl font-bold ${colors.title}`}
+                      >
                         {weather?.name}, {weather?.sys.country}
                       </CardTitle>
                       <button
-                        onClick={() => onToggleFavorite?.(city)}
+                        onClick={() => toggleFavorite?.(city)}
                         className="mt-2 focus:outline-none"
-                        aria-label={isFavorite ? "remover" : "agregar"}
+                        aria-label={favorites ? "remover" : "agregar"}
                       >
-                        <FaHeart 
+                        <FaHeart
                           className={`w-5 h-5 transition-colors ${
-                            isFavorite ? 'text-red-500 fill-red-500' : `text-slate-900 hover:text-red-500`
+                            favorites
+                              ? "text-red-500 fill-red-500"
+                              : `text-slate-900 hover:text-red-500`
                           }`}
                         />
                       </button>

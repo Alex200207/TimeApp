@@ -44,6 +44,7 @@ const Header: React.FC<HeaderProps> = ({ onAddCity, city }) => {
 
   const colors = getColorClasses();
   const backgroundColor = weather ? colors.background : "bg-gray-800";
+  const textColor = weather ? colors.text : "text-white";
 
   return (
     <>
@@ -53,9 +54,9 @@ const Header: React.FC<HeaderProps> = ({ onAddCity, city }) => {
         <nav className="max-w-7xl mx-auto">
           <div className="flex justify-between items-center space-x-4">
             <div
-              className={`text-2xl font-semibold flex-1 text-center lg:text-left ${colors.text}`}
+              className={`text-2xl font-semibold flex-1 text-center lg:text-left ${colors.text} flex`}
             >
-              <span className={colors.accent}>Time</span>App
+              <span className={colors.accent}>Time</span><p className={`${textColor}`}>App</p>
             </div>
 
             <div className="flex-2">

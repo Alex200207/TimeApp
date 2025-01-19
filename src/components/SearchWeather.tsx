@@ -26,6 +26,7 @@ const SearchWeather = ({ onAddCity, city }: SearchWeatherProps) => {
 
   const backgroundColor = weather ? colors.cardBg : "bg-gray-800";
 
+
   return (
     <div className="relative">
       <div className="relative">
@@ -34,7 +35,7 @@ const SearchWeather = ({ onAddCity, city }: SearchWeatherProps) => {
           placeholder="Buscar ciudad"
           value={inputValue}
           onChange={onInputChange}
-          className={`w-full p-2 pr-10 ${backgroundColor} opacity-100 ${colors.title} focus:outline-none focus:border-none placeholder:text-slate-50`}
+          className={`w-full p-2 pr-10 ${backgroundColor} opacity-100 ${colors.title} focus:outline-none focus:border-none placeholder:${colors.title}`}
         />
         {loading && (
           <div className="absolute right-3 top-1/2 -translate-y-1/2">
