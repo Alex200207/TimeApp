@@ -6,6 +6,7 @@ import { City } from "@/types";
 import { getWeatherColor } from "@/utils/getWeatherColor";
 import { PanelRightClose, X } from "lucide-react";
 import { useEffect, useState } from "react";
+import { useFavorites } from "@/contexts/FavoritesContext";
 
 interface FavoritesAsideProps {
   show: boolean;
@@ -21,23 +22,7 @@ export const FavoritesAside = ({
   const { weather } = useGetWeather(city);
   const [colors, setColors] = useState(getWeatherColor(weather));
   const [isMobile, setIsMobile] = useState(false);
-  const [favorites] = useState([
-    {
-      city: "Buenos Aires",
-      temperature: 20,
-      condition: "Soleado",
-    },
-    {
-      city: "Córdoba",
-      temperature: 25,
-      condition: "Nublado",
-    },
-    {
-      city: "Rosario",
-      temperature: 18,
-      condition: "Lluvia",
-    },
-  ]);
+ const { favorites } = useFavorites();
 
   useEffect(() => {
     const handleResize = () => {
@@ -77,8 +62,8 @@ export const FavoritesAside = ({
       </div>
       <ScrollArea className="h-[calc(100vh-64px)] p-4">
         <div className="space-y-4">
-          {favorites.map((fav) => (
-            <Card key={fav.city} className="relative">
+          {favorites.map((fav, index) => (
+            <Card key={index} className="relative">
               <CardContent className="p-4">
                 <Button
                   variant="ghost"
@@ -87,9 +72,9 @@ export const FavoritesAside = ({
                 >
                   <X className="h-4 w-4" />
                 </Button>
-                <h3 className="font-semibold">{fav.city}</h3>
+                <h3 className="font-semibold">{fav.name}</h3>
                 <p>
-                  {fav.temperature}°C - {fav.condition}
+                  {fav.state}°C - {fav.country}
                 </p>
 
                 <div className="flex items-center gap-2 mt-4">

@@ -7,10 +7,27 @@ interface FavoritesContextProps {
   isFavorite: (city: City) => boolean;
 }
 
-const FavoritesContext = createContext<FavoritesContextProps | undefined>(undefined);
+const FavoritesContext = createContext<FavoritesContextProps | undefined>(
+  undefined
+);
 
-export const FavoritesProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [favorites, setFavorites] = useState<City[]>([]);
+export const FavoritesProvider: React.FC<{ children: React.ReactNode }> = ({
+  children,
+}) => {
+  const [favorites, setFavorites] = useState<City[]>([
+    {
+      name: "Buenos Aires",
+      country: "AR",
+    },
+    {
+      name: "Córdoba",
+      country: "AR",
+    },
+    {
+      name: "Rosario",
+      country: "AR",
+    },
+  ]);
 
   const toggleFavorite = (city: City) => {
     setFavorites((prevFavorites) =>
@@ -20,10 +37,13 @@ export const FavoritesProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     );
   };
 
-  const isFavorite = (city: City) => favorites.some((fav) => fav.name === city.name);
+  const isFavorite = (city: City) =>
+    favorites.some((fav) => fav.name === city.name);
 
   return (
-    <FavoritesContext.Provider value={{ favorites, toggleFavorite, isFavorite }}>
+    <FavoritesContext.Provider
+      value={{ favorites, toggleFavorite, isFavorite }}
+    >
       {children}
     </FavoritesContext.Provider>
   );
@@ -32,7 +52,7 @@ export const FavoritesProvider: React.FC<{ children: React.ReactNode }> = ({ chi
 export const useFavorites = () => {
   const context = useContext(FavoritesContext);
   if (!context) {
-    throw new Error("useFavorites must be used within a FavoritesProvider");
+    throw new Error(" useFavorites debe estar dentro de un FavoritesProvider");
   }
   return context;
 };

@@ -1,9 +1,8 @@
 import {
   Card,
   CardContent,
-  CardDescription,
   CardHeader,
-  CardTitle,
+
 } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
@@ -13,10 +12,6 @@ export const AboutMe = () => {
   return (
     <Card className="w-full max-w-md mx-auto ">
       <CardHeader className="text-center">
-        <CardTitle className="text-2xl font-bold">
-          Acerca del Desarrollador
-        </CardTitle>
-        <CardDescription>Creador de la Aplicación del Clima</CardDescription>
       </CardHeader>
       <CardContent className="flex flex-col items-center space-y-4">
         <Avatar className="w-24 h-24">
