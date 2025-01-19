@@ -1,11 +1,5 @@
-import React, { createContext, useContext, useState } from "react";
-import { City } from "@/types";
-
-interface FavoritesContextProps {
-  favorites: City[];
-  toggleFavorite: (city: City) => void;
-  isFavorite: (city: City) => boolean;
-}
+import React, { createContext, useContext, useEffect, useState } from "react";
+import { City, FavoritesContextProps } from "@/types";
 
 const FavoritesContext = createContext<FavoritesContextProps | undefined>(
   undefined
@@ -14,20 +8,22 @@ const FavoritesContext = createContext<FavoritesContextProps | undefined>(
 export const FavoritesProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const [favorites, setFavorites] = useState<City[]>([
-    {
-      name: "Buenos Aires",
-      country: "AR",
-    },
-    {
-      name: "Córdoba",
-      country: "AR",
-    },
-    {
-      name: "Rosario",
-      country: "AR",
-    },
-  ]);
+  const [isMobile, setIsMobile] = useState(false);
+  const [favorites, setFavorites] = useState<City[]>([]);
+  
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    handleResize();
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   const toggleFavorite = (city: City) => {
     setFavorites((prevFavorites) =>
@@ -42,7 +38,7 @@ export const FavoritesProvider: React.FC<{ children: React.ReactNode }> = ({
 
   return (
     <FavoritesContext.Provider
-      value={{ favorites, toggleFavorite, isFavorite }}
+      value={{ favorites, toggleFavorite, isFavorite, isMobile }}
     >
       {children}
     </FavoritesContext.Provider>

@@ -7,6 +7,7 @@ import { Button } from "./ui/button";
 import { Heart } from "lucide-react";
 import { FavoritesAside } from "./Favorites-aside";
 import { AboutModal } from "./Modals/AboutModal";
+import { useFavorites } from "@/contexts/FavoritesContext";
 
 interface HeaderProps {
   onAddCity: (newCity: City) => void;
@@ -15,6 +16,8 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ onAddCity, city }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { isMobile } = useFavorites();
+
   const [showFavorites, setShowFavorites] = useState(false);
   const { weather } = useGetWeather(city);
   const hour = new Date().getHours();
@@ -55,7 +58,8 @@ const Header: React.FC<HeaderProps> = ({ onAddCity, city }) => {
             <div
               className={`text-2xl font-semibold flex-1 text-center lg:text-left ${colors.text} flex`}
             >
-              <span className={colors.accent}>Time</span><p className={`${textColor}`}>App</p>
+              <span className={colors.accent}>Time</span>
+              <p className={`${textColor}`}>App</p>
             </div>
 
             <div className="flex-2">
@@ -72,15 +76,14 @@ const Header: React.FC<HeaderProps> = ({ onAddCity, city }) => {
             <div
               className={`hidden lg:flex items-center space-x-6 ${colors.text}`}
             >
-              
               <AboutModal />
               <Button
                 onClick={() => setShowFavorites(!showFavorites)}
                 variant="outline"
-                className="w-full bg-transparent text-white border-none hover:bg-white hover:text-slate-900"
+                className="w-full bg-slate-50 text-white border-none hover:bg-white hover:text-slate-900"
               >
-                <Heart className="mr-2 h-4 w-4" />
-                <span className={` text-sm`}>
+                <Heart className={`mr-2 h-4 w-4 ${isMobile ? 'text-black': 'text-black'}  ` } />
+                <span className={` text-sm ${isMobile ? 'text-black': 'text-black '}  `}>
                   {showFavorites ? "Ocultar Favoritos" : "Mostrar Favoritos"}
                 </span>
               </Button>

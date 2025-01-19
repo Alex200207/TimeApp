@@ -94,3 +94,11 @@ export interface SnowData {
   '1h'?: number;
   '3h'?: number;
 }
+
+
+export interface FavoritesContextProps {
+  favorites: City[];
+  toggleFavorite: (city: City) => void;
+  isFavorite: (city: City) => boolean;
+  isMobile: boolean;
+}

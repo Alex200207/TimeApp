@@ -26,11 +26,11 @@ export const AboutModal = () => {
  
         <Button
           variant="outline"
-          className={`bg-transparent ${
-            isMobile ? "text-slate-950" : "text-white"
+          className={`bg-slate-50 ${
+            isMobile ? "text-slate-950 " : "text-black"
           } border-none`}
         >
-          Acerca del Desarrollador
+          Acerca de
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px] bg-transparent border-none">
