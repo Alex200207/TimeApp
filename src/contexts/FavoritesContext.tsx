@@ -10,7 +10,17 @@ export const FavoritesProvider: React.FC<{ children: React.ReactNode }> = ({
 }) => {
   const [isMobile, setIsMobile] = useState(false);
   const [favorites, setFavorites] = useState<City[]>([]);
-  
+
+  useEffect(() => {
+    const storedFavorites = localStorage.getItem("favorites");
+    if (storedFavorites) {
+      setFavorites(JSON.parse(storedFavorites));
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("favorites", JSON.stringify(favorites));
+  }, [favorites]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -48,7 +58,7 @@ export const FavoritesProvider: React.FC<{ children: React.ReactNode }> = ({
 export const useFavorites = () => {
   const context = useContext(FavoritesContext);
   if (!context) {
-    throw new Error(" useFavorites debe estar dentro de un FavoritesProvider");
+    throw new Error("useFavorites debe estar dentro de un FavoritesProvider");
   }
   return context;
 };
