@@ -58,7 +58,7 @@ const Header: React.FC<HeaderProps> = ({ onAddCity, city }) => {
               <span className={colors.accent}>Time</span>App
             </div>
 
-            <div className="flex-1">
+            <div className="flex-2">
               <SearchWeather onAddCity={onAddCity} city={city} />
             </div>
 
