@@ -102,10 +102,10 @@ const WeatherCard = ({ city }: WeatherCardProps) => {
                         aria-label={favorites ? "remover" : "agregar"}
                       >
                         <FaHeart
-                          className={`w-5 h-5 transition-colors ${
-                            favorites
-                              ? "text-red-500 fill-red-500"
-                              : `text-slate-900 hover:text-red-500`
+                          className={`w-6 h-6 ${
+                            favorites?.some((fav) => fav.name === city.name)
+                              ? "text-red-500"
+                              : colors.text
                           }`}
                         />
                       </button>

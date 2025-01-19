@@ -82,9 +82,18 @@ const Header: React.FC<HeaderProps> = ({ onAddCity, city }) => {
                 variant="outline"
                 className="w-full bg-slate-50 text-white border-none hover:bg-white hover:text-slate-900"
               >
-                <Heart className={`mr-2 h-4 w-4 ${isMobile ? 'text-black': 'text-black'}  ` } />
-                <span className={` text-sm ${isMobile ? 'text-black': 'text-black '}  `}>
-                  {showFavorites ? "Ocultar Favoritos" : "Mostrar Favoritos"}
+                <Heart
+                  className={`mr-2 h-4 w-4 ${
+                    isMobile ? "text-black" : "text-black"
+                  }`}
+                />
+                <span
+                  className={`text-sm ${
+                    isMobile ? "text-black" : "text-black"
+                  }`}
+                >
+                  {showFavorites ? "Ocultar Favoritos" : "Mostrar Favoritos"} (
+                  {useFavorites().favorites.length})
                 </span>
               </Button>
             </div>
