@@ -1,7 +1,6 @@
 import { useState } from "react";
 import SearchWeather from "./SearchWeather";
 import DropDown from "./DropDown";
-import MenuNavigator from "./MenuNavigator";
 import { City } from "../types";
 import useGetWeather from "@/hooks/useGetWeather";
 import { Button } from "./ui/button";
@@ -73,7 +72,7 @@ const Header: React.FC<HeaderProps> = ({ onAddCity, city }) => {
             <div
               className={`hidden lg:flex items-center space-x-6 ${colors.text}`}
             >
-              <MenuNavigator name="Home" content="Algo" />
+              
               <AboutModal />
               <Button
                 onClick={() => setShowFavorites(!showFavorites)}

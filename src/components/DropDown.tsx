@@ -22,7 +22,7 @@ const DropDown = ({ showAside }: DropDownProps) => {
       <DropdownMenuContent className="p-2 mr-1 min-w-32">
         <DropdownMenuLabel>Menu</DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>Home</DropdownMenuItem>
+
         <DropdownMenuItem className="text-sm" onClick={() => showAside(true)}>
           Favoritos <Heart className="w-4 h-4" />
         </DropdownMenuItem>
