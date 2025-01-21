@@ -12,7 +12,9 @@ const HomePage = () => {
 
   return (
     <>
+    
       {weather ? (
+
         <MainLayout onAddCity={onAddCity} weather={weather} city={city}>
           
             <WeatherCard city={city} weather={weather} />

@@ -104,7 +104,7 @@ const WeatherCard = ({ city, weather }: WeatherCardProps) => {
                           className={`w-6 h-6 ${
                             favorites?.some((fav) => fav.name === city.name)
                               ? "text-red-500"
-                              : colors.text
+                              : 'text-gray-900'
                           }`}
                         />
                       </button>
