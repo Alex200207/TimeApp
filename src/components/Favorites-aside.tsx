@@ -68,6 +68,12 @@ export const FavoritesAside = ({ show, onClose }: FavoritesAsideProps) => {
           <PanelRightClose className="h-5 w-5" />
         </Button>
       </div>
+
+      {favorites.length === 0 && (
+        <div className="p-4 text-center text-slate-300 ">
+          No tienes ciudades favoritas
+        </div>
+      )}
       <ScrollArea className="h-[calc(100vh-48px)] p-2">
         <div className="space-y-2">
           {favorites.map((fav) => {
