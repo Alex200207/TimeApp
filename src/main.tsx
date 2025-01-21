@@ -2,13 +2,13 @@
 import { createRoot } from "react-dom/client";
 import "./index.css";
 import App from "./App.tsx";
-import { FavoritesProvider } from "./contexts/FavoritesContext.tsx";
+import { WeatherProvider } from "./contexts/WeatherContext.tsx";
 
 createRoot(document.getElementById("root")!).render(
   // <StrictMode>
-  <FavoritesProvider>
+  <WeatherProvider>
     <App />
-  </FavoritesProvider>
+  </WeatherProvider>
 
   // /* </StrictMode>, */
 );

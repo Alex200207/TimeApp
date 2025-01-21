@@ -35,11 +35,9 @@ export type WeatherForecastItem = {
   wind: WindData;
   snow?: SnowData;
   sys: SysData;
-  dt_txt: string; 
+  dt_txt: string;
   icon?: "rain" | "cloud" | "sun";
 };
-
-
 
 export type WeatherForecastApiResponse = {
   cod: string;
@@ -47,7 +45,6 @@ export type WeatherForecastApiResponse = {
   cnt: number;
   list: WeatherForecastItem[];
 };
-
 
 export interface Weather {
   id: number;
@@ -88,16 +85,17 @@ export interface City {
   name: string;
   country: string;
   state?: string;
+  weather?: WeatherApiResponse;
 }
 
 export interface SnowData {
-  '1h'?: number;
-  '3h'?: number;
+  "1h"?: number;
+  "3h"?: number;
 }
-
 
 export interface FavoritesContextProps {
   favorites: City[];
+  removeFavorite: (cityToRemove: City) => void;
   toggleFavorite: (city: City) => void;
   isFavorite: (city: City) => boolean;
   isMobile: boolean;

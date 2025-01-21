@@ -24,8 +24,6 @@ const SearchWeather = ({ onAddCity, city }: SearchWeatherProps) => {
   const { inputValue, onInputChange, cities, loading, handleCitySelect } =
     useSearchWeather({ onAddCity });
 
-
-
   return (
     <div className="relative">
       <div className="relative">
@@ -34,7 +32,7 @@ const SearchWeather = ({ onAddCity, city }: SearchWeatherProps) => {
           placeholder="Buscar ciudad"
           value={inputValue}
           onChange={onInputChange}
-          className={`w-full p-2 pr-10 bg-slate-50 opacity-100 ${colors.title} focus:outline-none focus:border-none placeholder:${colors.title}`}
+          className={`w-full p-2 pr-10 bg-slate-50 opacity-100 ${colors.title} focus:outline-none focus:border-none placeholder:text-slate-800`}
         />
         {loading && (
           <div className="absolute right-3 top-1/2 -translate-y-1/2">

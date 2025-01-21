@@ -1,28 +1,28 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import useGetWeather from "@/hooks/useGetWeather";
-import { City } from "@/types";
-import { getWeatherColor } from "@/utils/getWeatherColor";
-import { PanelRightClose, X } from "lucide-react";
+import type { City } from "@/types";
+import {
+  PanelRightClose,
+  Trash2,
+  Eye,
+  ChevronDown,
+  ChevronUp,
+} from "lucide-react";
 import { useEffect, useState } from "react";
-import { useFavorites } from "@/contexts/FavoritesContext";
+import { useFavorites } from "@/contexts/WeatherContext";
 
 interface FavoritesAsideProps {
   show: boolean;
   onClose: () => void;
-  city: City;
 }
 
-export const FavoritesAside = ({
-  show,
-  onClose,
-  city,
-}: FavoritesAsideProps) => {
-  const { weather } = useGetWeather(city);
-  const [colors, setColors] = useState(getWeatherColor(weather));
+export const FavoritesAside = ({ show, onClose }: FavoritesAsideProps) => {
   const [isMobile, setIsMobile] = useState(false);
- const { favorites } = useFavorites();
+  const { favorites, removeFavorite } = useFavorites();
+  const [expandedCards, setExpandedCards] = useState<{
+    [key: string]: boolean;
+  }>({});
 
   useEffect(() => {
     const handleResize = () => {
@@ -37,63 +37,120 @@ export const FavoritesAside = ({
     };
   }, []);
 
-  useEffect(() => {
-    if (weather) {
-      setColors(getWeatherColor(weather));
-    }
-  }, [weather]);
+  const handleRemoveFavorite = (cityToRemove: City) => {
+    removeFavorite(cityToRemove);
+  };
+
+  const toggleCardExpansion = (cityId: string) => {
+    setExpandedCards((prev) => ({
+      ...prev,
+      [cityId]: !prev[cityId],
+    }));
+  };
 
   return (
     <aside
       className={`
       fixed top-0 right-0 h-full z-50 ${isMobile ? "w-full" : "w-80"} ${
         isMobile ? "z-50" : "z-40"
-      } backdrop-blur-sm ${
-        colors.cardBg
-      } shadow-lg transform transition-transform duration-300 ease-in-out
+      } backdrop-blur-sm bg-slate-900/90 shadow-lg transform transition-transform duration-300 ease-in-out
       ${show ? "translate-x-0" : "translate-x-full"}
     `}
     >
-      <div className="p-4 bg-slate-900 border-b flex justify-between items-center">
-        <h2 className={`text-xl font-semibold text-slate-50 `}>Favoritos</h2>
-        <Button onClick={onClose} className="bg-transparent">
-          <PanelRightClose className={`h-10 w-10 ${colors.text}`} />
+      <div className="p-3 bg-slate-800 border-b border-slate-700 flex justify-between items-center">
+        <h2 className="text-xl font-semibold text-slate-50">Favoritos</h2>
+        <Button
+          onClick={onClose}
+          variant="ghost"
+          size="icon"
+          className="text-slate-300 hover:text-slate-100"
+        >
+          <PanelRightClose className="h-5 w-5" />
         </Button>
       </div>
-      <ScrollArea className="h-[calc(100vh-64px)] p-4">
-        <div className="space-y-4">
-          {favorites.map((fav, index) => (
-            <Card key={index} className="relative">
-              <CardContent className="p-4">
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="absolute top-2 right-2"
-                >
-                  <X className="h-4 w-4" />
-                </Button>
-                <h3 className="font-semibold">{fav.name}</h3>
-                <p>
-                  {fav.state}°C - {fav.country}
-                </p>
+      <ScrollArea className="h-[calc(100vh-48px)] p-2">
+        <div className="space-y-2">
+          {favorites.map((fav) => {
+            const isExpanded = expandedCards[fav.name] || false;
 
-                <div className="flex items-center gap-2 mt-4">
-                  <Button
-                    variant="outline"
-                    className={`w-full ${colors.border} ${colors.text}`}
-                  >
-                    Ver más
-                  </Button>
-                  <Button
-                    variant="outline"
-                    className={`w-full ${colors.border} ${colors.text}`}
-                  >
-                    Borrar
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
+            return (
+              <Card
+                key={fav.name}
+                className="bg-slate-800 border-slate-700 overflow-hidden"
+              >
+                <CardContent className="p-2">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center space-x-2">
+                      {fav.weather?.weather[0].icon && (
+                        <img
+                          src={`https://openweathermap.org/img/wn/${fav.weather.weather[0].icon}.png`}
+                          alt={fav.weather.weather[0].description}
+                          className="w-8 h-8"
+                        />
+                      )}
+                      <div>
+                        <h3 className="font-semibold text-slate-100">
+                          {fav.name}
+                        </h3>
+                        <p className="text-xs text-slate-400">{fav.country}</p>
+                      </div>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <span className="text-lg font-bold text-slate-100">
+                        {fav.weather?.main.temp.toFixed(1)}°C
+                      </span>
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => toggleCardExpansion(fav.name)}
+                        className="text-slate-300 hover:text-slate-100 p-0"
+                      >
+                        {isExpanded ? (
+                          <ChevronUp className="h-4 w-4" />
+                        ) : (
+                          <ChevronDown className="h-4 w-4" />
+                        )}
+                      </Button>
+                    </div>
+                  </div>
+                  {isExpanded && (
+                    <div className="mt-2 pt-2 border-t border-slate-700">
+                      <p className="text-sm capitalize text-slate-300 mb-2">
+                        {fav.weather?.weather[0].description}
+                      </p>
+                      <div className="grid grid-cols-2 gap-1 text-xs text-slate-400">
+                        <div>
+                          Sensación: {fav.weather?.main.feels_like.toFixed(1)}°C
+                        </div>
+                        <div>Humedad: {fav.weather?.main.humidity}%</div>
+                        <div>Viento: {fav.weather?.wind.speed} m/s</div>
+                        <div>Presión: {fav.weather?.main.pressure} hPa</div>
+                      </div>
+                      <div className="flex items-center gap-2 mt-2">
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          className={`w-full  text-xs`}
+                        >
+                          <Eye className="w-3 h-3 mr-1" />
+                          Ver más
+                        </Button>
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          className="w-full bg-red-900/50 hover:bg-red-900/70 text-red-100 border-red-800 text-xs"
+                          onClick={() => handleRemoveFavorite(fav)}
+                        >
+                          <Trash2 className="w-3 h-3 mr-1" />
+                          Borrar
+                        </Button>
+                      </div>
+                    </div>
+                  )}
+                </CardContent>
+              </Card>
+            );
+          })}
         </div>
       </ScrollArea>
     </aside>

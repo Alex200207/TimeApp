@@ -1,11 +1,12 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { City, FavoritesContextProps } from "@/types";
+import { getWeather } from "@/helpers/getWeather";
 
-const FavoritesContext = createContext<FavoritesContextProps | undefined>(
+const WeatherContext = createContext<FavoritesContextProps | undefined>(
   undefined
 );
 
-export const FavoritesProvider: React.FC<{ children: React.ReactNode }> = ({
+export const WeatherProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const [isMobile, setIsMobile] = useState(false);
@@ -20,6 +21,12 @@ export const FavoritesProvider: React.FC<{ children: React.ReactNode }> = ({
 
   useEffect(() => {
     localStorage.setItem("favorites", JSON.stringify(favorites));
+
+    favorites.forEach((city) => {
+      if (!city.weather) {
+        togleFavorites(city);
+      }
+    });
   }, [favorites]);
 
   useEffect(() => {
@@ -43,22 +50,41 @@ export const FavoritesProvider: React.FC<{ children: React.ReactNode }> = ({
     );
   };
 
+  const togleFavorites = async (city: City) => {
+    try {
+      const data = await getWeather(city);
+      setFavorites((prevFavorites) =>
+        prevFavorites.map((fav) =>
+          fav.name === city.name ? { ...fav, weather: data } : fav
+        )
+      );
+    } catch (error) {
+      console.error("Error fetching weather data:", error);
+    }
+  };
+
+  const removeFavorite = (cityToRemove: City) => {
+    setFavorites((prevFavorites) =>
+      prevFavorites.filter((fav) => fav.name !== cityToRemove.name)
+    );
+  }
+
   const isFavorite = (city: City) =>
     favorites.some((fav) => fav.name === city.name);
 
   return (
-    <FavoritesContext.Provider
-      value={{ favorites, toggleFavorite, isFavorite, isMobile }}
+    <WeatherContext.Provider
+      value={{ favorites, toggleFavorite, isFavorite, isMobile , removeFavorite}}
     >
       {children}
-    </FavoritesContext.Provider>
+    </WeatherContext.Provider>
   );
 };
 
 export const useFavorites = () => {
-  const context = useContext(FavoritesContext);
+  const context = useContext(WeatherContext);
   if (!context) {
-    throw new Error("useFavorites debe estar dentro de un FavoritesProvider");
+    throw new Error("useFavorites debe estar dentro de un WeatherProvider");
   }
   return context;
 };

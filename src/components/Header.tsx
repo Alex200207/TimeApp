@@ -1,25 +1,24 @@
 import { useState } from "react";
 import SearchWeather from "./SearchWeather";
 import DropDown from "./DropDown";
-import { City } from "../types";
-import useGetWeather from "@/hooks/useGetWeather";
+import { City, WeatherApiResponse } from "../types";
 import { Button } from "./ui/button";
 import { Heart } from "lucide-react";
 import { FavoritesAside } from "./Favorites-aside";
 import { AboutModal } from "./Modals/AboutModal";
-import { useFavorites } from "@/contexts/FavoritesContext";
+import { useFavorites } from "@/contexts/WeatherContext";
 
 interface HeaderProps {
   onAddCity: (newCity: City) => void;
   city: City;
+  weather: WeatherApiResponse | null;
 }
 
-const Header: React.FC<HeaderProps> = ({ onAddCity, city }) => {
+const Header: React.FC<HeaderProps> = ({ onAddCity, city, weather }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { isMobile } = useFavorites();
 
   const [showFavorites, setShowFavorites] = useState(false);
-  const { weather } = useGetWeather(city);
   const hour = new Date().getHours();
   const isDaytime = hour >= 6 && hour < 18;
 
@@ -63,7 +62,7 @@ const Header: React.FC<HeaderProps> = ({ onAddCity, city }) => {
             </div>
 
             <div className="flex-2">
-              <SearchWeather onAddCity={onAddCity} city={city} />
+              <SearchWeather onAddCity={onAddCity} city={city}  />
             </div>
 
             <div
@@ -113,7 +112,7 @@ const Header: React.FC<HeaderProps> = ({ onAddCity, city }) => {
       <FavoritesAside
         show={showFavorites}
         onClose={() => setShowFavorites(!showFavorites)}
-        city={city}
+        
       />
     </>
   );

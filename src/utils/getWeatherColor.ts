@@ -8,6 +8,7 @@ interface WeatherColorClasses {
   border: string;
   cardBg: string;
   footerBg: string;
+  searchText?: string;
 }
 
 export const getWeatherColor = (
@@ -41,6 +42,7 @@ export const getWeatherColor = (
   const mutedTextColor = isDaytime ? "text-gray-600" : "text-gray-300";
   const iconColor = isDaytime ? "text-blue-600" : "text-blue-300";
   const borderColor = isDaytime ? "border-white/20" : "border-white/10";
+  const searchText = isDaytime ? "text-white" : "text-black";
 
   switch (condition) {
     case "clear":
@@ -51,6 +53,7 @@ export const getWeatherColor = (
         icon: iconColor,
         border: borderColor,
         cardBg: "bg-white/10",
+        searchText: searchText,
         footerBg: isDaytime ? "bg-white/20" : "bg-black/20",
       };
     case "clouds":
@@ -61,6 +64,7 @@ export const getWeatherColor = (
         icon: iconColor,
         border: borderColor,
         cardBg: "bg-white/10",
+        searchText: searchText,
         footerBg: isDaytime ? "bg-white/20" : "bg-black/20",
       };
     case "rain":
@@ -71,6 +75,7 @@ export const getWeatherColor = (
         icon: "text-blue-300",
         border: "border-white/10",
         cardBg: "bg-black/20",
+        searchText: searchText,
         footerBg: "bg-black/30",
       };
     case "snow":
@@ -82,6 +87,7 @@ export const getWeatherColor = (
         border: "border-white/10",
         cardBg: "bg-black/20",
         footerBg: "bg-black/30",
+        searchText: searchText,
       };
     case "thunderstorm":
       return {
@@ -91,6 +97,7 @@ export const getWeatherColor = (
         icon: "text-purple-300",
         border: "border-white/10",
         cardBg: "bg-black/30",
+        searchText: searchText,
         footerBg: "bg-black/40",
       };
     default:
@@ -101,6 +108,7 @@ export const getWeatherColor = (
         icon: iconColor,
         border: borderColor,
         cardBg: "bg-white/10",
+        searchText: searchText,
         footerBg: isDaytime ? "bg-white/20" : "bg-black/20",
       };
   }

@@ -16,8 +16,7 @@ import {
   Thermometer,
   Wind,
 } from "lucide-react";
-import useGetWeather from "@/hooks/useGetWeather";
-import { useFavorites } from "@/contexts/FavoritesContext";
+import { useFavorites } from "@/contexts/WeatherContext";
 import { City, WeatherApiResponse } from "@/types";
 import { getWeatherColor } from "../utils/getWeatherColor";
 import { useEffect, useState } from "react";
@@ -28,11 +27,11 @@ interface WeatherCardProps {
   weather: WeatherApiResponse | null;
 }
 
-const WeatherCard = ({ city }: WeatherCardProps) => {
-  const { weather } = useGetWeather(city);
+const WeatherCard = ({ city, weather }: WeatherCardProps) => {
   const [colors, setColors] = useState(getWeatherColor(weather));
   const [currentTime, setCurrentTime] = useState("");
   const { toggleFavorite, favorites } = useFavorites();
+ 
 
   useEffect(() => {
     if (weather) {
