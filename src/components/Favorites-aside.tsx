@@ -53,7 +53,7 @@ export const FavoritesAside = ({ show, onClose }: FavoritesAsideProps) => {
       className={`
       fixed top-0 right-0 h-full z-50 ${isMobile ? "w-full" : "w-80"} ${
         isMobile ? "z-50" : "z-40"
-      } backdrop-blur-sm bg-slate-900/90 shadow-lg transform transition-transform duration-300 ease-in-out
+      } backdrop-blur-sm bg-transparent   shadow-lg transform transition-transform duration-300 ease-in-out
       ${show ? "translate-x-0" : "translate-x-full"}
     `}
     >
@@ -103,7 +103,7 @@ export const FavoritesAside = ({ show, onClose }: FavoritesAsideProps) => {
                         variant="ghost"
                         size="sm"
                         onClick={() => toggleCardExpansion(fav.name)}
-                        className="text-slate-300 hover:text-slate-100 p-0"
+                        className="text-slate-300  p-0"
                       >
                         {isExpanded ? (
                           <ChevronUp className="h-4 w-4" />
