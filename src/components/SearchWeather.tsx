@@ -1,9 +1,6 @@
 import { useSearchWeather } from "@/hooks/useSearchWeather";
 import { Input } from "./ui/input";
 import { City } from "@/types";
-import { useEffect, useState } from "react";
-import { getWeatherColor } from "@/utils/getWeatherColor";
-import useGetWeather from "@/hooks/useGetWeather";
 import { Loader2, MapPin } from "lucide-react";
 
 interface SearchWeatherProps {
@@ -11,16 +8,7 @@ interface SearchWeatherProps {
   city: City;
 }
 
-const SearchWeather = ({ onAddCity, city }: SearchWeatherProps) => {
-  const { weather } = useGetWeather(city);
-  const [colors, setColors] = useState(getWeatherColor(weather));
-
-  useEffect(() => {
-    if (weather) {
-      setColors(getWeatherColor(weather));
-    }
-  }, [weather]);
-
+const SearchWeather = ({ onAddCity }: SearchWeatherProps) => {
   const { inputValue, onInputChange, cities, loading, handleCitySelect } =
     useSearchWeather({ onAddCity });
 
@@ -32,7 +20,7 @@ const SearchWeather = ({ onAddCity, city }: SearchWeatherProps) => {
           placeholder="Buscar ciudad"
           value={inputValue}
           onChange={onInputChange}
-          className={`w-full p-2 pr-10 bg-slate-50 opacity-100 ${colors.title} focus:outline-none focus:border-none placeholder:text-slate-800`}
+          className={`w-full p-2 pr-10 bg-slate-50 opacity-100 text-slate-800 focus:outline-none focus:border-none placeholder:text-slate-800`}
         />
         {loading && (
           <div className="absolute right-3 top-1/2 -translate-y-1/2">

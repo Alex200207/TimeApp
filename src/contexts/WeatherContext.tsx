@@ -67,14 +67,20 @@ export const WeatherProvider: React.FC<{ children: React.ReactNode }> = ({
     setFavorites((prevFavorites) =>
       prevFavorites.filter((fav) => fav.name !== cityToRemove.name)
     );
-  }
+  };
 
   const isFavorite = (city: City) =>
     favorites.some((fav) => fav.name === city.name);
 
   return (
     <WeatherContext.Provider
-      value={{ favorites, toggleFavorite, isFavorite, isMobile , removeFavorite}}
+      value={{
+        favorites,
+        toggleFavorite,
+        isFavorite,
+        isMobile,
+        removeFavorite,
+      }}
     >
       {children}
     </WeatherContext.Provider>
