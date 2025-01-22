@@ -1,7 +1,8 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import type { City } from "@/types";
+import { useFavoriteHook } from "@/hooks/useFavoriteHook";
+
 import {
   PanelRightClose,
   Trash2,
@@ -9,8 +10,6 @@ import {
   ChevronDown,
   ChevronUp,
 } from "lucide-react";
-import { useEffect, useState } from "react";
-import { useFavorites } from "@/contexts/WeatherContext";
 
 interface FavoritesAsideProps {
   show: boolean;
@@ -18,35 +17,14 @@ interface FavoritesAsideProps {
 }
 
 export const FavoritesAside = ({ show, onClose }: FavoritesAsideProps) => {
-  const [isMobile, setIsMobile] = useState(false);
-  const { favorites, removeFavorite } = useFavorites();
-  const [expandedCards, setExpandedCards] = useState<{
-    [key: string]: boolean;
-  }>({});
-
-  useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-
-    handleResize();
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
-
-  const handleRemoveFavorite = (cityToRemove: City) => {
-    removeFavorite(cityToRemove);
-  };
-
-  const toggleCardExpansion = (cityId: string) => {
-    setExpandedCards((prev) => ({
-      ...prev,
-      [cityId]: !prev[cityId],
-    }));
-  };
+  const {
+    favorites,
+    expandedCards,
+    toggleCardExpansion,
+    handleRemoveFavorite,
+    showFavorites,
+    isMobile,
+  } = useFavoriteHook({ onClose });
 
   return (
     <aside
@@ -137,6 +115,7 @@ export const FavoritesAside = ({ show, onClose }: FavoritesAsideProps) => {
                           variant="outline"
                           size="sm"
                           className={`w-full  text-xs`}
+                          onClick={() => showFavorites(favorites, fav.name)}
                         >
                           <Eye className="w-3 h-3 mr-1" />
                           Ver más

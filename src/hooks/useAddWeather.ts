@@ -3,9 +3,11 @@ import useGetWeather from "./useGetWeather";
 import { City } from "@/types";
 import { API_KEY, API_URL } from "@/constants/api";
 
+
 export const useAddWeather = () => {
   const [city, setCity] = useState<City>({ name: "ocotal", country: "NI" });
   const { weather } = useGetWeather(city);
+
 
   useEffect(() => {
     getCityFromGeolocation();
@@ -29,6 +31,7 @@ export const useAddWeather = () => {
     }
   };
 
+
   const onAddCity = (newCity: City) => {
     setCity(newCity);
   };
@@ -38,6 +41,7 @@ export const useAddWeather = () => {
 
   return {
     city,
+    setCity,
     weather,
     onAddCity,
     delay,

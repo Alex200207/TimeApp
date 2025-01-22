@@ -97,7 +97,7 @@ export default function WeatherForecast({ city }: WeatherForecastProps) {
                   className="flex items-center justify-between p-4"
                 >
                   <div className="w-28">
-                    <Skeleton className="h-4 w-20" />
+                    <Skeleton className="h-12 w-20" />
                   </div>
                   <div className="flex items-center gap-2 min-w-[100px]">
                     <Skeleton className="h-8 w-8 rounded-full" />
