@@ -28,6 +28,7 @@ const useGetWeather = (city: City) => {
 
   return {
     weather,
+    setWeather,
     loading,
     setLoadingFalse,
   

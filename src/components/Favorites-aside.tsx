@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useFavoriteHook } from "@/hooks/useFavoriteHook";
+import { City } from "@/types";
 
 import {
   PanelRightClose,
@@ -14,9 +15,10 @@ import {
 interface FavoritesAsideProps {
   show: boolean;
   onClose: () => void;
+  onAddCity: (newCity: City) => void
 }
 
-export const FavoritesAside = ({ show, onClose }: FavoritesAsideProps) => {
+export const FavoritesAside = ({ show, onClose, onAddCity }: FavoritesAsideProps) => {
   const {
     favorites,
     expandedCards,
@@ -24,7 +26,7 @@ export const FavoritesAside = ({ show, onClose }: FavoritesAsideProps) => {
     handleRemoveFavorite,
     showFavorites,
     isMobile,
-  } = useFavoriteHook({ onClose });
+  } = useFavoriteHook({ onClose, onAddCity });
 
   return (
     <aside

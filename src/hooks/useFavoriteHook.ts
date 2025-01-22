@@ -4,11 +4,13 @@ import type { City } from "@/types";
 
 interface FavoriteHookProps {
   onClose: () => void;
+  onAddCity: (newCity: City) => void;
 }
 
-export const useFavoriteHook = ({ onClose }: FavoriteHookProps) => {
+export const useFavoriteHook = ({ onClose, onAddCity }: FavoriteHookProps) => {
   const [isMobile, setIsMobile] = useState(false);
   const { favorites, removeFavorite } = useFavorites();
+
   const [expandedCards, setExpandedCards] = useState<{
     [key: string]: boolean;
   }>({});
@@ -39,7 +41,11 @@ export const useFavoriteHook = ({ onClose }: FavoriteHookProps) => {
 
   const showFavorites = (favorites: City[], cityName: string): City[] => {
     const favoritos = favorites.filter((fav) => fav.name === cityName);
-    console.log("Favoritos encontrados:", favoritos);
+
+    if (favoritos.length > 0) {
+      onAddCity(favoritos[0]); // Actualiza la ciudad en useAddWeather
+    }
+
     onClose();
     return favoritos;
   };

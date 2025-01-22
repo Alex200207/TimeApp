@@ -111,6 +111,7 @@ const Header: React.FC<HeaderProps> = ({ onAddCity, city, weather }) => {
 
       <FavoritesAside
         show={showFavorites}
+        onAddCity={onAddCity}
         onClose={() => setShowFavorites(!showFavorites)}
         
       />
