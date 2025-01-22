@@ -43,7 +43,7 @@ export const useFavoriteHook = ({ onClose, onAddCity }: FavoriteHookProps) => {
     const favoritos = favorites.filter((fav) => fav.name === cityName);
 
     if (favoritos.length > 0) {
-      onAddCity(favoritos[0]); // Actualiza la ciudad en useAddWeather
+      onAddCity(favoritos[0]);
     }
 
     onClose();

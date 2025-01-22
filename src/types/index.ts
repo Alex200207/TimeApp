@@ -23,9 +23,7 @@ export interface WeatherApiResponse {
   name: string;
   cod: number;
 }
-export type WeatherDay = {
-  icon: "rain" | "cloud" | "sun";
-};
+
 
 export type WeatherForecastItem = {
   dt: number;

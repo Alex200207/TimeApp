@@ -15,10 +15,14 @@ import {
 interface FavoritesAsideProps {
   show: boolean;
   onClose: () => void;
-  onAddCity: (newCity: City) => void
+  onAddCity: (newCity: City) => void;
 }
 
-export const FavoritesAside = ({ show, onClose, onAddCity }: FavoritesAsideProps) => {
+export const FavoritesAside = ({
+  show,
+  onClose,
+  onAddCity,
+}: FavoritesAsideProps) => {
   const {
     favorites,
     expandedCards,
@@ -31,13 +35,13 @@ export const FavoritesAside = ({ show, onClose, onAddCity }: FavoritesAsideProps
   return (
     <aside
       className={`
-      fixed top-0 right-0 h-full z-50 ${isMobile ? "w-full" : "w-80"} ${
+      fixed top-0 right-0 h-full  z-50 ${isMobile ? "w-full" : "w-80"} ${
         isMobile ? "z-50" : "z-40"
       } backdrop-blur-sm bg-transparent   shadow-lg transform transition-transform duration-300 ease-in-out
       ${show ? "translate-x-0" : "translate-x-full"}
     `}
     >
-      <div className="p-3 bg-slate-800 border-b border-slate-700 flex justify-between items-center">
+      <div className="p-3  bg-slate-800 border-b overflow-auto border-slate-700 flex justify-between items-center">
         <h2 className="text-xl font-semibold text-slate-50">Favoritos</h2>
         <Button
           onClick={onClose}
@@ -64,7 +68,7 @@ export const FavoritesAside = ({ show, onClose, onAddCity }: FavoritesAsideProps
                 key={fav.name}
                 className="bg-slate-800 border-slate-700 overflow-hidden"
               >
-                <CardContent className="p-2">
+                <CardContent className="p-2 ">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center space-x-2">
                       {fav.weather?.weather[0].icon && (
@@ -135,7 +139,7 @@ export const FavoritesAside = ({ show, onClose, onAddCity }: FavoritesAsideProps
                     </div>
                   )}
                 </CardContent>
-              </Card>
+              </Card >
             );
           })}
         </div>

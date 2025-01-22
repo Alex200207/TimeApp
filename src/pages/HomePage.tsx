@@ -4,7 +4,6 @@ import WeatherForecast from "@/components/WeatherForecast";
 import { useAddWeather } from "@/hooks/useAddWeather";
 import { LoadingCustom } from "@/components/LoadingCustom";
 
-
 // import { useGetPronostico } from "@/hooks/useGetPronostico";
 
 const HomePage = () => {
@@ -12,13 +11,9 @@ const HomePage = () => {
 
   return (
     <>
-    
       {weather ? (
-
         <MainLayout onAddCity={onAddCity} weather={weather} city={city}>
-          
-            <WeatherCard city={city} weather={weather} />
-         
+          <WeatherCard city={city} weather={weather} />
 
           <WeatherForecast city={city} />
         </MainLayout>
