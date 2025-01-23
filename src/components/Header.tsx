@@ -7,6 +7,7 @@ import { Heart } from "lucide-react";
 import { FavoritesAside } from "./Favorites-aside";
 import { AboutModal } from "./Modals/AboutModal";
 import { useFavorites } from "@/contexts/WeatherContext";
+import { useScrollHeader } from "@/hooks/useScrollHeader";
 
 interface HeaderProps {
   onAddCity: (newCity: City) => void;
@@ -17,12 +18,12 @@ interface HeaderProps {
 const Header: React.FC<HeaderProps> = ({ onAddCity, city, weather }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { isMobile } = useFavorites();
+  const isVisible = useScrollHeader();
 
   const [showFavorites, setShowFavorites] = useState(false);
   const hour = new Date().getHours();
   const isDaytime = hour >= 6 && hour < 18;
 
-  // Obtener las clases de color basadas en el momento del día
   const getColorClasses = () => {
     if (isDaytime) {
       return {
@@ -50,30 +51,40 @@ const Header: React.FC<HeaderProps> = ({ onAddCity, city, weather }) => {
   return (
     <>
       <header
-        className={`p-4 ${colors.shadow} z-50 ${backgroundColor} backdrop-blur- border-b ${colors.border} flex space-x-4 items-center`}
+        className={`
+          fixed top-0 left-0 right-0 px-2 py-3 sm:px-4 sm:py-4 flex items-center justify-center
+          ${colors.shadow} 
+          z-50 
+          ${backgroundColor} 
+          backdrop-blur-sm 
+          border-b 
+          ${colors.border} 
+          transition-transform duration-300 ease-in-out
+          ${isVisible ? "translate-y-0" : "-translate-y-full"}
+        `}
       >
         <nav className="max-w-7xl mx-auto">
-          <div className="flex justify-between items-center space-x-4">
+          <div className="flex justify-between items-center gap-2 sm:gap-4">
             <div
-              className={`text-2xl font-semibold flex-1 text-center lg:text-left ${colors.text} flex`}
+              className={`text-xl sm:text-2xl font-semibold ${colors.text} flex items-center shrink-0`}
             >
               <span className={colors.accent}>Time</span>
               <p className={`${textColor}`}>App</p>
             </div>
 
-            <div className="flex-2">
-              <SearchWeather onAddCity={onAddCity} city={city}  />
+            <div className="flex-1 flex justify-center">
+              <SearchWeather onAddCity={onAddCity} city={city} />
             </div>
 
             <div
-              className={`lg:hidden p-2 flex-0 ${colors.text}`}
+              className={`lg:hidden flex items-center justify-center shrink-0 ${colors.text}`}
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             >
               <DropDown showAside={setShowFavorites} />
             </div>
 
             <div
-              className={`hidden lg:flex items-center space-x-6 ${colors.text}`}
+              className={`hidden lg:flex items-center space-x-6 shrink-0 ${colors.text}`}
             >
               <AboutModal />
               <Button
@@ -98,8 +109,17 @@ const Header: React.FC<HeaderProps> = ({ onAddCity, city, weather }) => {
             </div>
           </div>
         </nav>
+      </header>
 
-        <style>{`
+      <div className="h-[56px] sm:h-[72px]"></div>
+
+      <FavoritesAside
+        show={showFavorites}
+        onAddCity={onAddCity}
+        onClose={() => setShowFavorites(!showFavorites)}
+      />
+
+      <style>{`
         .shadow-light {
           box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
         }
@@ -107,14 +127,6 @@ const Header: React.FC<HeaderProps> = ({ onAddCity, city, weather }) => {
           box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
         }
       `}</style>
-      </header>
-
-      <FavoritesAside
-        show={showFavorites}
-        onAddCity={onAddCity}
-        onClose={() => setShowFavorites(!showFavorites)}
-        
-      />
     </>
   );
 };
