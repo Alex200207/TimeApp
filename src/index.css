@@ -54,30 +54,7 @@
   }
 }
 
-.rain-drop {
-  @apply absolute w-0.5 h-10 bg-blue-200/30 rounded-full;
-  animation: rain linear infinite;
-}
 
-.snow-flake {
-  @apply absolute w-2 h-2 bg-white rounded-full;
-  animation: snow linear infinite;
-}
-
-.cloud {
-  @apply absolute w-32 h-16 bg-white/20 rounded-full;
-  animation: float 30s linear infinite;
-}
-
-.cloud::before {
-  content: "";
-  @apply absolute w-20 h-20 -top-10 left-6 bg-white/20 rounded-full;
-}
-
-.lightning {
-  @apply absolute inset-0 bg-white/10;
-  animation: lightning 5s infinite;
-}
 @layer base {
   :root {
     --background: 0 0% 100%;

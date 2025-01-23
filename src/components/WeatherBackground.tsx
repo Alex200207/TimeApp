@@ -1,15 +1,7 @@
 import { FC } from "react";
 import { WeatherApiResponse } from "@/types";
-import {
-  Sun,
-  Moon,
-  Star,
-  Cloud,
-  CloudRain,
-  CloudSnow,
-  CloudLightning,
-  CloudFog,
-} from "lucide-react";
+import { Sun, Moon, Star, Cloud, CloudRain, CloudSnow } from "lucide-react";
+
 
 interface WeatherBackgroundProps {
   weather: WeatherApiResponse | null;
@@ -109,44 +101,34 @@ const WeatherBackground: FC<WeatherBackgroundProps> = ({ weather }) => {
         </div>
       )}
 
-      <div className="absolute inset-0 grid grid-cols-8 md:grid-cols-12 gap-8 p-8">
-        {Array(24)
-          .fill(0)//fill() método llena los elementos de una matriz con el valor estático
-          .map((_, i) => {
-            const WeatherIcon = (() => {
-              switch (condition) {
-                case "clear":
-                  return isDaytime ? Sun : Moon;
-                case "clouds":
-                  return Cloud;
-                case "rain":
-                  return CloudRain;
-                case "snow":
-                  return CloudSnow;
-                case "thunderstorm":
-                  return CloudLightning;
-                case "fog":
-                case "mist":
-                  return CloudFog;
-                default:
-                  return isDaytime ? Sun : Moon;
-              }
-            })();
+     
 
+
+
+      <div className="absolute inset-0">
+        {Array(32)
+          .fill(0) //fill() método llena los elementos de una matriz con el valor estático
+          .map((_, i) => {
             return (
               <div
                 key={i}
-                className={`transform transition-all duration-1000 ${
+                className={`absolute transform transition-all duration-1000 ${
                   isDaytime ? "opacity-20" : "opacity-10"
                 }`}
                 style={{
+                  top: `${Math.random() * 100}%`,
+                  left: `${Math.random() * 100}%`,
                   animation: `float ${3 + Math.random() * 2}s infinite ${
                     i * 0.2
                   }s`,
                   transform: `translateY(${Math.sin(i) * 10}px)`,
                 }}
               >
-                <WeatherIcon className="w-8 h-8" />
+
+                {condition === "clear" && <Star className="w-8 h-8" />}
+                {condition === "clouds" && <Cloud className="w-8 h-8" />}
+                {condition === "rain" && <CloudRain className="w-8 h-8" />}
+                {condition === "snow" && <CloudSnow className="w-8 h-8" />}
               </div>
             );
           })}

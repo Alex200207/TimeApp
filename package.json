@@ -1,7 +1,9 @@
 {
   "name": "timeapp",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.0.1",
+  "description": "Gestiona tu tiempo de forma eficiente",
+  
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
