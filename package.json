@@ -3,7 +3,6 @@
   "private": true,
   "version": "0.0.1",
   "description": "Gestiona tu tiempo de forma eficiente",
-  
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
@@ -54,6 +53,7 @@
     "@types/react-dom": "^19.0.3",
     "@vitejs/plugin-react": "^4.3.4",
     "autoprefixer": "^10.4.20",
+    "axios-mock-adapter": "^2.1.0",
     "babel-plugin-transform-import-meta": "^2.3.2",
     "eslint": "^9.17.0",
     "eslint-plugin-react-hooks": "^5.0.0",

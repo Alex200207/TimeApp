@@ -2,7 +2,6 @@ import { FC } from "react";
 import { WeatherApiResponse } from "@/types";
 import { Sun, Moon, Star, Cloud, CloudRain, CloudSnow } from "lucide-react";
 
-
 interface WeatherBackgroundProps {
   weather: WeatherApiResponse | null;
 }
@@ -101,10 +100,6 @@ const WeatherBackground: FC<WeatherBackgroundProps> = ({ weather }) => {
         </div>
       )}
 
-     
-
-
-
       <div className="absolute inset-0">
         {Array(32)
           .fill(0) //fill() método llena los elementos de una matriz con el valor estático
@@ -124,7 +119,6 @@ const WeatherBackground: FC<WeatherBackgroundProps> = ({ weather }) => {
                   transform: `translateY(${Math.sin(i) * 10}px)`,
                 }}
               >
-
                 {condition === "clear" && <Star className="w-8 h-8" />}
                 {condition === "clouds" && <Cloud className="w-8 h-8" />}
                 {condition === "rain" && <CloudRain className="w-8 h-8" />}
