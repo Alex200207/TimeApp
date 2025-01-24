@@ -119,7 +119,7 @@ const WeatherBackground: FC<WeatherBackgroundProps> = ({ weather }) => {
                   transform: `translateY(${Math.sin(i) * 10}px)`,
                 }}
               >
-                {condition === "clear" && <Star className="w-8 h-8" />}
+                {condition === "clear" && <Sun className="w-8 h-8" />}
                 {condition === "clouds" && <Cloud className="w-8 h-8" />}
                 {condition === "rain" && <CloudRain className="w-8 h-8" />}
                 {condition === "snow" && <CloudSnow className="w-8 h-8" />}

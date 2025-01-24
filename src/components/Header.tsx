@@ -56,7 +56,7 @@ const Header: React.FC<HeaderProps> = ({ onAddCity, city, weather }) => {
           ${colors.shadow} 
           z-50 
           ${backgroundColor} 
-          backdrop-blur-sm 
+          backdrop-blur-none backdrop-filter
           border-b 
           ${colors.border} 
           transition-transform duration-300 ease-in-out
