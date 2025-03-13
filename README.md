@@ -1,50 +1,40 @@
-# React + TypeScript + Vite
+# App del Clima
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Aplicación web del clima desarrollada con **React**, **TypeScript**, **Vite**, **Tailwind CSS** y **ShadCN**. Esta aplicación permite a los usuarios consultar el clima de cualquier ciudad en tiempo real, utilizando la API de **OpenWeather**.
 
-Currently, two official plugins are available:
+## Características
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Consulta del clima en tiempo real para cualquier ciudad.
+- Información detallada sobre la temperatura, humedad y condiciones climáticas.
+- Interfaz moderna y responsiva gracias a **Tailwind CSS** y **ShadCN**.
+- Funciona de manera rápida y eficiente utilizando **Vite** como bundler.
+- Código base en **TypeScript** para un desarrollo más robusto y seguro.
+- Diseño elegante y componentes reutilizables con **ShadCN**.
 
-## Expanding the ESLint configuration
+## Instalación
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
 
-- Configure the top-level `parserOptions` property like this:
+1. Clona el repositorio:
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+   ```bash
+   git clone https://github.com/tu-usuario/nombre-del-repositorio.git
+   ```bash
+2. Navega al directorio del proyecto:
+   ```bash
+   cd nombre-del-repositorio
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+3. Crea un archivo .env en la raíz del proyecto y agrega las siguientes variables de entorno debes generar una api-key en https://openweathermap.org/api:
+   ```bash
+   VITE_API_KEY=tu_api_key_aqui
+   VITE_API_URL=https://api.openweathermap.org/data/2.5/weather?
+   VITE_API_URL_GEO=https://api.openweathermap.org/geo/1.0/direct?
+   VITE_API_URL_ONECALL=https://api.openweathermap.org/data/2.5/forecast?
+4. Correr el proyecto 
+```bash
+   npm install
+```bash
+   npm run dev
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+   
+
