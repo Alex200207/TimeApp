@@ -34,6 +34,11 @@ export const useAddWeather = (
     }
   };
 
+  //temas a tener en cuenta
+  //navigator es un objeto global que se utiliza para obtener la geolocalizacion del usuario
+  //geoLocation es un objeto que contiene la latitud y longitud del usuario
+  //getCurrentPosition es un metodo que se encarga de obtener la posicion actual del usuario
+
   const onAddCity = (newCity: City) => {
     setCity(newCity);
   };

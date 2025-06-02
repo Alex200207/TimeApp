@@ -1,5 +1,6 @@
 import { Github } from "lucide-react";
 
+
 const Footer = () => {
   return (
     <footer className=" text-white text-center p-4">

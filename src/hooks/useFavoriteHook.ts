@@ -15,6 +15,8 @@ export const useFavoriteHook = ({ onClose, onAddCity }: FavoriteHookProps) => {
     [key: string]: boolean;
   }>({});
 
+
+
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth < 768);
