@@ -1,7 +1,12 @@
 {
   "ci": {
     "collect": {
-      "numberOfRuns": 3
+      "numberOfRuns": 3,
+      "settings": {
+        "formFactor": "desktop",
+        "screenEmulation": { "disabled": true },
+        "emulatedUserAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+      }
     },
     "assert": {
       "assertions": {
