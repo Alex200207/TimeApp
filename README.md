@@ -21,7 +21,7 @@ Aplicación web del clima desarrollada con **React**, **TypeScript**, **Vite**, 
    ```bash
 2. Navega al directorio del proyecto:
    ```bash
-   cd nombre-del-repositorio
+   cd TimeApp
 
 3. Crea un archivo .env en la raíz del proyecto y agrega las siguientes variables de entorno debes generar una api-key en https://openweathermap.org/api:
    ```bash
