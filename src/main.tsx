@@ -3,6 +3,7 @@ import { createRoot } from "react-dom/client";
 import "./index.css";
 import App from "./App.tsx";
 import { WeatherProvider } from "./contexts/WeatherContext.tsx";
+import { reportWebVitals } from "./reportWebVitals.ts";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
@@ -11,3 +12,4 @@ createRoot(document.getElementById("root")!).render(
     </WeatherProvider>
   </StrictMode>
 );
+reportWebVitals();
